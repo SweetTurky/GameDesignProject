@@ -158,12 +158,12 @@ public class FirstPersonController : MonoBehaviour
 
         if(crosshair)
         {
-            crosshairObject.sprite = crosshairImage;
-            crosshairObject.color = crosshairColor;
+        //    crosshairObject.sprite = crosshairImage;
+        //    crosshairObject.color = crosshairColor;
         }
         else
         {
-            crosshairObject.gameObject.SetActive(false);
+        //    crosshairObject.gameObject.SetActive(false);
         }
 
         #region Sprint Bar
@@ -186,7 +186,7 @@ public class FirstPersonController : MonoBehaviour
 
             if(hideBarWhenFull)
             {
-                sprintBarCG.alpha = 0;
+            //    sprintBarCG.alpha = 0;
             }
         }
         else
@@ -422,7 +422,7 @@ public class FirstPersonController : MonoBehaviour
 
                 if (hideBarWhenFull && sprintRemaining == sprintDuration)
                 {
-                    sprintBarCG.alpha -= 3 * Time.deltaTime;
+                //    sprintBarCG.alpha -= 3 * Time.deltaTime;
                 }
 
                 targetVelocity = transform.TransformDirection(targetVelocity) * walkSpeed;
