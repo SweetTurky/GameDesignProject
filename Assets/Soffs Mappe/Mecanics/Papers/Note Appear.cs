@@ -7,21 +7,19 @@ public class NoteAppear : MonoBehaviour
 {
     [SerializeField]
     private Image _noteImage;
-    
-    void OnTriggerEnter(Collider other)
+    private bool _isVisible = false;
+
+    void Start()
     {
-        if (other.CompareTag("Player"))
-       {
-            _noteImage.enabled = true;
-       } 
+        // Ensure the document is initially hidden
+        _noteImage.enabled = false;
     }
 
-    // Update is called once per frame
-    void OnTriggerExit(Collider other)
+    void OnMouseDown()
     {
-        if (other.CompareTag("Player"))
-        {
-            _noteImage.enabled = false;
-        }
+        // Toggle the visibility of the document
+        _isVisible = !_isVisible;
+        _noteImage.enabled = _isVisible;
     }
 }
+
