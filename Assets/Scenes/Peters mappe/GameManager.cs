@@ -14,13 +14,11 @@ public class GameManager : MonoBehaviour
     public bool isGameLost = false;
     public bool interact = false;
     public bool lanternHeld = false;
+    public bool noteInteraction = false;
+    public GameObject lanternInstruction;
     public GameObject instruction;
     public GameObject enableInteraction;
-    public GameObject objectOnGround;
-    public GameObject objectOnHand;
-    public Transform playerHandTransform;
-    private Vector3 originalLanternPosition; // Store the original position of the lantern
-    private Quaternion originalLanternRotation; // Store the original rotation of the lantern
+    public NoteAppear noteAppear;
 
 
     private HashSet<GameObject> collectedNotes = new HashSet<GameObject>();
@@ -41,17 +39,26 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         instruction.SetActive(false);
+        lanternInstruction.SetActive(false);
         enableInteraction.SetActive(true);
-        objectOnGround.SetActive(true);
-        objectOnHand.SetActive(false);
-        originalLanternPosition = objectOnGround.transform.position; // Store the original position of the lantern
-        originalLanternRotation = objectOnGround.transform.rotation; // Store the original rotation of the lantern
 
     }
 
     void OnTriggerEnter(Collider collision)
     {
-        if (collision.transform.CompareTag("Note") || collision.transform.CompareTag("Lantern") || collision.transform.CompareTag("Cabinet") || collision.transform.CompareTag("Furniture"))
+        if (collision.transform.CompareTag("Note"))
+        {
+            instruction.SetActive(true);
+            interact = true;
+            noteInteraction = true;
+
+        }
+        else if (collision.transform.CompareTag("Lantern"))
+        {
+            lanternInstruction.SetActive(true);
+            interact = true;
+        }
+        else if (collision.transform.CompareTag("Cabinet") || collision.transform.CompareTag("Furniture"))
         {
             instruction.SetActive(true);
             interact = true;
@@ -59,6 +66,7 @@ public class GameManager : MonoBehaviour
         else
         {
             instruction.SetActive(false);
+            lanternInstruction.SetActive(false);
         }
     
     }
@@ -66,39 +74,52 @@ public class GameManager : MonoBehaviour
     void OnTriggerExit(Collider collision)
     {
         instruction.SetActive(false);
+        lanternInstruction.SetActive(false);
         interact = false;
+        noteInteraction = false;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (interact == true)
+            if (Input.GetKeyDown(KeyCode.E) && interact == true && noteInteraction == true)
             {
-                instruction.SetActive(false);
-                objectOnGround.SetActive(false);
-                objectOnHand.SetActive(true);
-                enableInteraction.SetActive(false);
-                interact = false;
+                Debug.Log("E key is pressed and interact is true."); 
+                
+                    instruction.SetActive(false);
+                    enableInteraction.SetActive(false);
+                    interact = false;
 
-                // Check if the collided object is a note and hasn't been collected yet
-                Collider[] colliders = Physics.OverlapSphere(transform.position, 0.5f);
-                foreach (Collider collider in colliders)
+                    noteAppear.LookAtNote();
+
+                if (!noteAppear.isVisible)
                 {
-                    if (collider.CompareTag("Note") && !collectedNotes.Contains(collider.gameObject))
+                    Debug.Log("Note is not visible, proceed to collect.");
+
+                    // Check if the collided object is a note and hasn't been collected yet
+                    Collider[] colliders = Physics.OverlapSphere(transform.position, 0.5f);
+                    foreach (Collider collider in colliders)
                     {
-                        CollectNote();
-                        collectedNotes.Add(collider.gameObject);
-                        break; // Exit loop after collecting one note
-                    }
-                    else if (collider.CompareTag("Lantern"))
-                    {
-                        GrabOrLeaveLantern(); // Call GrabOrLeaveLantern method
+                        
+                        if (collider.CompareTag("Note") && !collectedNotes.Contains(collider.gameObject))
+                        {
+                            CollectNote();
+                            
+                            collectedNotes.Add(collider.gameObject);
+                            break; // Exit loop after collecting one note
+                            interact = true;
+                        }
+                        
                     }
                 }
+                
             }
-        }
-    }
+
+        else if (noteAppear.isVisible && Input.GetKeyDown(KeyCode.E))
+            {
+                noteAppear.LookAtNote();
+            }
+    }      
+
 
     public void CollectNote()
     {
@@ -111,33 +132,6 @@ public class GameManager : MonoBehaviour
             WinGame();
         }
     }
-    public void GrabOrLeaveLantern()
-{
-    if (!lanternHeld)
-    {
-            // Pick up the lantern
-            lanternHeld = true;
-            objectOnHand.SetActive(true);  // Show the lantern in the player's hand
-            objectOnGround.SetActive(false);  // Hide the lantern on the ground
-            // Attach the lantern to the player's hand or parent it to the player's hand GameObject
-            objectOnGround.transform.SetParent(playerHandTransform);  // Assuming playerHandTransform is the transform of the player's hand
-            // Reset the local position and rotation of the lantern to its original values
-            objectOnGround.transform.localPosition = Vector3.zero; // Place the lantern at the origin of the player's hand
-            objectOnGround.transform.localRotation = Quaternion.identity; // Reset the rotation of the lantern
-        }
-        else
-        {
-            // Drop the lantern
-            lanternHeld = false;
-            objectOnHand.SetActive(false);  // Hide the lantern in the player's hand
-            objectOnGround.SetActive(true);  // Show the lantern on the ground
-            // Detach the lantern from the player's hand
-            objectOnGround.transform.SetParent(null);
-            // Set the position of the lantern directly below the player's hand
-            objectOnGround.transform.position = playerHandTransform.position - playerHandTransform.up; // Place the lantern one unit below the player's hand position
-        }
-    }
-
 
     public void LoseGame()
     {
