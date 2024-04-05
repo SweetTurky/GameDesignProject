@@ -6,20 +6,34 @@ using UnityEngine.UI;
 public class NoteAppear : MonoBehaviour
 {
     [SerializeField]
-    private Image _noteImage;
-    private bool _isVisible = false;
+    public Image noteImage;
+    public GameObject noteGameObject;
+    public bool isVisible = false;
 
     void Start()
     {
         // Ensure the document is initially hidden
-        _noteImage.enabled = false;
+        noteImage.enabled = false;
     }
 
-    void OnMouseDown()
+    public void LookAtNote()
     {
-        // Toggle the visibility of the document
-        _isVisible = !_isVisible;
-        _noteImage.enabled = _isVisible;
+        if (noteImage.enabled == false)
+        {
+
+            // Note is not visible, make it visible
+            noteImage.enabled = true;
+            isVisible = true; // Update the isVisible variable
+            noteGameObject.SetActive(false);
+        }
+        else
+        {
+            // Note is visible, make it invisible
+            noteImage.enabled = false;
+            isVisible = false; // Update the isVisible variable
+            noteGameObject.SetActive(true);
+        }
     }
+
 }
 

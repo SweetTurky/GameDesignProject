@@ -10,6 +10,7 @@ public class SanityManager : MonoBehaviour
     public float sanityIncreaseRate = 0.01f;
     private bool nearLightSource = false;
     private int lastLoggedInterval = 100;
+    public AudioSource audioSource;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("LightSource"))
@@ -49,6 +50,8 @@ public class SanityManager : MonoBehaviour
         playerSanity -= sanityDecayRate * Time.deltaTime;
 
         playerSanity = Mathf.Clamp(playerSanity, 0f, 100f); // this code clamps sanity within valid range from 0 to 100
+
+        audioSource.volume = 1 - playerSanity / 100F;
 
         // Check sanity intervals and log messages accordingly
     if (playerSanity <= 100f && lastLoggedInterval > 100)
@@ -92,26 +95,5 @@ public class SanityManager : MonoBehaviour
         Debug.Log("Player Sanity between 20 - 0!");
         lastLoggedInterval = 0;
     }
-
-        /*if(playerSanity <= 100f)
-        {
-            Debug.Log("Player Sanity between 100 - 80!");
-        }
-        if(playerSanity <= 80f)
-        {
-            Debug.Log("Player Sanity between 80 - 60!");
-        }
-        if(playerSanity <= 60f)
-        {
-            Debug.Log("Player Sanity between 60 - 40!");
-        }
-        if(playerSanity <= 40f)
-        {
-            Debug.Log("Player Sanity between 40 - 20!");
-        }
-        if(playerSanity < 20f)
-        {
-            Debug.Log("Player Sanity between 20 - 0!");
-        }*/
     }
 }
