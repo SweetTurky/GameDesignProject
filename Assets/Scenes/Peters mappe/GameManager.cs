@@ -18,13 +18,16 @@ public class GameManager : MonoBehaviour
     public GameObject lanternInstruction;
     public GameObject instruction;
     public GameObject enableInteraction;
+    public GameObject menuCanvas;
+    public FadeToBlack fadeToBlack;
+    public GameObject firstPersonController;
     public NoteAppear noteAppear;
-
-
     private HashSet<GameObject> collectedNotes = new HashSet<GameObject>();
+    public AudioListener audioListener;
 
     private void Awake()
     {
+        
         // Ensure only one instance of the GameManager exists
         if (instance == null)
         {
@@ -137,8 +140,12 @@ public class GameManager : MonoBehaviour
     {
         if (isGameLost == true)
         {
-            Debug.Log("Game Over! You lose.");
-            // Add any other lose conditions or actions here
+            
+            menuCanvas.SetActive(true);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            fadeToBlack.StartFade();
+            StartCoroutine(TurnOffAudioListener());
         }
     }
 
@@ -168,5 +175,19 @@ public class GameManager : MonoBehaviour
     {
         // Quit the game (works in standalone builds)
         Application.Quit();
+    }
+    IEnumerator TurnOffAudioListener()
+    {       
+        yield return new WaitForSeconds(4.0f);
+            if (audioListener != null)
+            {
+                audioListener.enabled = false;
+            }
+            else
+            {
+                Debug.LogWarning("AudioListener component not found.");
+            }
+            
+        
     }
 }
