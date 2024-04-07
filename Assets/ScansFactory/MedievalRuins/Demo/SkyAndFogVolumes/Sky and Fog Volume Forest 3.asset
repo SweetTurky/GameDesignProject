@@ -15,7 +15,7 @@ MonoBehaviour:
   active: 1
   temperature:
     m_OverrideState: 1
-    m_Value: -2
+    m_Value: -15
   tint:
     m_OverrideState: 1
     m_Value: 0
@@ -65,10 +65,10 @@ MonoBehaviour:
   active: 1
   shadows:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 1, z: 1, w: -0.026628407}
+    m_Value: {x: 1, y: 1, z: 1, w: -0.04229011}
   midtones:
     m_OverrideState: 1
-    m_Value: {x: 0.89, y: 1, z: 0.9248333, w: 0.14827007}
+    m_Value: {x: 0.89, y: 1, z: 0.9248333, w: -0.02400869}
   highlights:
     m_OverrideState: 1
     m_Value: {x: 0.90999997, y: 1, z: 0.9775, w: -0.008396864}
@@ -429,7 +429,7 @@ MonoBehaviour:
     m_Value: 0
   color:
     m_OverrideState: 1
-    m_Value: {r: 2.270603, g: 2.258715, b: 2.258715, a: 1}
+    m_Value: {r: 0.5676507, g: 0.56467867, b: 0.56467867, a: 1}
   tint:
     m_OverrideState: 1
     m_Value: {r: 0.6933962, g: 0.86092407, b: 1, a: 1}
@@ -462,7 +462,7 @@ MonoBehaviour:
     m_Value: {r: 0.53505534, g: 0.5471698, b: 0.498131, a: 1}
   globalLightProbeDimmer:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
   depthExtent:
     m_OverrideState: 1
     m_Value: 30
@@ -505,10 +505,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa3b8214f75b354e9ba2caadd022259, type: 3}
   m_Name: DepthOfField
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   quality:
     m_OverrideState: 1
-    m_Value: 3
+    m_Value: 2
   focusMode:
     m_OverrideState: 1
     m_Value: 2
@@ -532,19 +532,19 @@ MonoBehaviour:
     m_Value: 600
   m_NearSampleCount:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 8
   m_NearMaxBlur:
     m_OverrideState: 1
-    m_Value: 3
+    m_Value: 7
   m_FarSampleCount:
     m_OverrideState: 1
-    m_Value: 7
+    m_Value: 14
   m_FarMaxBlur:
     m_OverrideState: 1
-    m_Value: 8
+    m_Value: 13
   m_Resolution:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 1
   m_HighQualityFiltering:
     m_OverrideState: 1
     m_Value: 1
@@ -552,7 +552,7 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 0
   m_LimitManualRangeNearBlur:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
 --- !u!114 &3228020071143393076
 MonoBehaviour:
@@ -575,7 +575,7 @@ MonoBehaviour:
     m_Value: 0
   exposure:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: -0.5
   multiplier:
     m_OverrideState: 1
     m_Value: 1
@@ -743,10 +743,10 @@ MonoBehaviour:
     m_Value: 1
   fixedExposure:
     m_OverrideState: 1
-    m_Value: 2.250915
+    m_Value: 2
   compensation:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   limitMin:
     m_OverrideState: 1
     m_Value: -1
@@ -888,7 +888,7 @@ MonoBehaviour:
     m_Value: 0
   contrast:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 40
   colorFilter:
     m_OverrideState: 1
     m_Value: {r: 1, g: 1, b: 1, a: 1}
