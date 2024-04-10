@@ -11,26 +11,27 @@ public class playerPickupDrop : MonoBehaviour
     
     void Update() 
     {
-    
-    if (Input.GetKeyDown(KeyCode.Mouse0))
-    {
-        if(objectGrabbable == null)
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-        // Not carrying an object, try to grab
-        
-        
-        float pickUpDistance = 2f;
-        if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out RaycastHit raycastHit, pickUpDistance, pickUpLayerMask));
-        if (raycastHit.transform.TryGetComponent(out objectGrabbable)) {
-            objectGrabbable.Grab(objectGrabPointTransform);
+            if (objectGrabbable == null)
+            {
+                // Not carrying an object, try to grab
+                float pickUpDistance = 2f;
+                RaycastHit raycastHit;
+                if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out raycastHit, pickUpDistance, pickUpLayerMask))
+                {
+                    if (raycastHit.transform.TryGetComponent(out objectGrabbable))
+                    {
+                        objectGrabbable.Grab(objectGrabPointTransform);
+                    }
+                }
+            }
+            else
+            {
+                // Currently carrying something, drop.
+                objectGrabbable.Drop();
+                objectGrabbable = null;
+            } 
         }
-        }
-        else
-        {
-        // Currently carrying something, drop.
-        objectGrabbable.Drop();
-        objectGrabbable = null;
-    } 
-    }
     }
 }
