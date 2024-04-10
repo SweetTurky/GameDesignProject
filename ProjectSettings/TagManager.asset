@@ -9,6 +9,7 @@ TagManager:
   - Lantern
   - Cabinet
   - Furniture
+  - Refill
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - Water
   - UI
   - Lantern
-  - 
+  - PostProcessing
   - 
   - 
   - 

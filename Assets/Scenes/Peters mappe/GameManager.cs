@@ -24,6 +24,13 @@ public class GameManager : MonoBehaviour
     public NoteAppear noteAppear;
     private HashSet<GameObject> collectedNotes = new HashSet<GameObject>();
     public AudioListener audioListener;
+    private ObjectGrabbable objectGrabbable;
+
+    public float pickUpDistance = 2f; // Distance for raycasting to pick up objects
+    public LayerMask pickUpLayerMask; // Layer mask for objects that can be picked up
+    public Transform playerCameraTransform; // Camera transform to use for raycasting
+
+
 
     private void Awake()
     {
@@ -121,6 +128,26 @@ public class GameManager : MonoBehaviour
             {
                 noteAppear.LookAtNote();
             }
+
+        if (Input.GetKeyDown(KeyCode.Mouse0) && objectGrabbable == null)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out hit, pickUpDistance, pickUpLayerMask))
+            {
+                if (hit.transform.CompareTag("Lantern"))
+                {
+                    interact = true; // Enable interaction
+                    lanternInstruction.SetActive(true); // Show instruction
+                    return; // Exit the method to avoid further checks
+                }
+            }
+        }
+
+        // Hide the instruction if the lantern is held
+        if (lanternHeld)
+        {
+            lanternInstruction.SetActive(false);
+        }
     }      
 
 
@@ -136,11 +163,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /* public void CollectLantern()
+    {
+        lanternHeld == true;
+
+        lanternInstruction.SetActive(false);
+    }
+
+    public void DropLantern()
+    {
+        lanternHeld = false;
+    }*/
+
     public void LoseGame()
     {
         if (isGameLost == true)
         {
-            
             menuCanvas.SetActive(true);
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
