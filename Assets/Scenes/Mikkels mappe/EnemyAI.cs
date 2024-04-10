@@ -62,7 +62,7 @@ public class EnemyAI : MonoBehaviour
                 ai.isStopped = true;
                 walkSpeed = 0;
                 chaseSpeed = 0;
-                StartCoroutine("LoseGameAfterTimer");
+                //StartCoroutine("LoseGameAfterTimer");
                 //player.gameObject.SetActive(false);
                 // Set jumpscare animation
                 aiAnim.Play("Cast03"); // Assuming "Death" animation is for jumpscare
@@ -88,7 +88,7 @@ public class EnemyAI : MonoBehaviour
             }
         }
     }
-    public IEnumerator LoseGameAfterTimer()
+    /*public IEnumerator LoseGameAfterTimer()
     {
         firstPersonController.GetComponent<FirstPersonController>().enabled = false;
         yield return new WaitForSeconds(7.5f);
@@ -97,7 +97,7 @@ public class EnemyAI : MonoBehaviour
         gameManager.isGameLost = true;
         gameManager.LoseGame();
         yield break;
-    }
+    } */
     void OnDrawGizmosSelected()
     {
         if (showSightDistanceGizmo)
