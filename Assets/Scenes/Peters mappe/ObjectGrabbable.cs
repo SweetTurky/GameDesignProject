@@ -20,7 +20,7 @@ public class ObjectGrabbable : MonoBehaviour
         objectRigidbody = GetComponent<Rigidbody>();
         lanternLight = GetComponentInChildren<Light>();
         lightTimer = sanityManager.candleTimeLeft; 
-        initalRange = playerLight
+        initalRange = lanternLight.range;
     }
 
     public void Grab(Transform objectGrabPointTransform)
@@ -84,6 +84,7 @@ public class ObjectGrabbable : MonoBehaviour
 
         // Ensure light intensity is set to 0
         lanternLight.intensity = 0f;
+        lanternLight.range = 0f;
     }
 
     private void OnTriggerEnter(Collider other)
