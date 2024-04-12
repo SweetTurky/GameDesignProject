@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TriggerDrawerControl : MonoBehaviour
+public class TriggerShelfControl : MonoBehaviour
 {
-    [SerializeField] private Animator drawerAnimator = null;
+    [SerializeField] private Animator selfAnimator = null;
     [SerializeField] private AudioSource openSound = null; // Assign the open sound effect
     [SerializeField] private AudioSource closeSound = null; // Assign the close sound effect
     public float cooldownTime = 0.5f; // Adjust this value as needed
@@ -33,14 +33,14 @@ public class TriggerDrawerControl : MonoBehaviour
                 if (!isOpen)
                 {
                     // Play the open animation
-                    drawerAnimator.Play("OpenDrawer", 0, 0.0f);
+                    selfAnimator.Play("Open Shelf", 0, 0.0f);
                     isOpen = true; // Update the state to open
                     openSound.Play(); // Play the open sound effect
                 }
                 else
                 {
                     // Play the close animation
-                    drawerAnimator.Play("CloseDrawer", 0, 0.0f);
+                    selfAnimator.Play("Close Shelf", 0, 0.0f);
                     isOpen = false; // Update the state to closed
                     closeSound.Play(); // Play the close sound effect
                 }
