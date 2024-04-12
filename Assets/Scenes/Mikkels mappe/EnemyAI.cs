@@ -12,8 +12,12 @@ public class EnemyAI : MonoBehaviour
     public float walkSpeed, chaseSpeed, minIdleTime, maxIdleTime, idleTime, sightDistance, catchDistance, chaseTime, minChaseTime, maxChaseTime, jumpscareTime;
     public bool walking, chasing;
     public Transform player;
-    Transform currentDest;
-    // Vector3 destLimit = new Vector3(-2, -2, 0);
+    public Transform currentDest;
+
+    public Vector3 teleportPoint1;
+
+    public Vector3 teleportPoint2;
+    //Vector3 destLimit = new Vector3(-2, -2, 0);
     public Vector3 dest;
     int randNum;
     public Vector3 rayCastOffset;
@@ -28,6 +32,13 @@ public class EnemyAI : MonoBehaviour
         randNum = Random.Range(0, destinations.Count);
         currentDest = destinations[randNum];
         // dest = dest - destLimit;
+    }
+
+    public void TeleportToPoint1(){
+        ai.Warp(teleportPoint1);
+    }
+    public void TeleportToPoint2(){
+        ai.Warp(teleportPoint2);
     }
 
     void Update()
@@ -126,6 +137,7 @@ public class EnemyAI : MonoBehaviour
         randNum = Random.Range(0, destinations.Count);
         currentDest = destinations[randNum];
     }
+
 
     /*IEnumerator deathRoutine()
     {
