@@ -18,13 +18,23 @@ public class GameManager : MonoBehaviour
     public GameObject lanternInstruction;
     public GameObject instruction;
     public GameObject enableInteraction;
+    public GameObject menuCanvas;
+    public FadeToBlack fadeToBlack;
+    public GameObject firstPersonController;
     public NoteAppear noteAppear;
-
-
     private HashSet<GameObject> collectedNotes = new HashSet<GameObject>();
+    public AudioListener audioListener;
+    private ObjectGrabbable objectGrabbable;
+
+    public float pickUpDistance = 2f; // Distance for raycasting to pick up objects
+    public LayerMask pickUpLayerMask; // Layer mask for objects that can be picked up
+    public Transform playerCameraTransform; // Camera transform to use for raycasting
+
+
 
     private void Awake()
     {
+        
         // Ensure only one instance of the GameManager exists
         if (instance == null)
         {
@@ -118,6 +128,26 @@ public class GameManager : MonoBehaviour
             {
                 noteAppear.LookAtNote();
             }
+
+        if (Input.GetKeyDown(KeyCode.Mouse0) && objectGrabbable == null)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out hit, pickUpDistance, pickUpLayerMask))
+            {
+                if (hit.transform.CompareTag("Lantern"))
+                {
+                    interact = true; // Enable interaction
+                    lanternInstruction.SetActive(true); // Show instruction
+                    return; // Exit the method to avoid further checks
+                }
+            }
+        }
+
+        // Hide the instruction if the lantern is held
+        if (lanternHeld)
+        {
+            lanternInstruction.SetActive(false);
+        }
     }      
 
 
@@ -133,12 +163,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /* public void CollectLantern()
+    {
+        lanternHeld == true;
+
+        lanternInstruction.SetActive(false);
+    }
+
+    public void DropLantern()
+    {
+        lanternHeld = false;
+    }*/
+
     public void LoseGame()
     {
         if (isGameLost == true)
         {
-            Debug.Log("Game Over! You lose.");
-            // Add any other lose conditions or actions here
+            menuCanvas.SetActive(true);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            fadeToBlack.StartFade();
+            StartCoroutine(TurnOffAudioListener());
         }
     }
 
@@ -168,5 +213,19 @@ public class GameManager : MonoBehaviour
     {
         // Quit the game (works in standalone builds)
         Application.Quit();
+    }
+    IEnumerator TurnOffAudioListener()
+    {       
+        yield return new WaitForSeconds(4.0f);
+            if (audioListener != null)
+            {
+                audioListener.enabled = false;
+            }
+            else
+            {
+                Debug.LogWarning("AudioListener component not found.");
+            }
+            
+        
     }
 }

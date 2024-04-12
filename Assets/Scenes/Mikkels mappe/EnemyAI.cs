@@ -13,17 +13,21 @@ public class EnemyAI : MonoBehaviour
     public bool walking, chasing;
     public Transform player;
     Transform currentDest;
-    Vector3 dest;
+    // Vector3 destLimit = new Vector3(-2, -2, 0);
+    public Vector3 dest;
     int randNum;
     public Vector3 rayCastOffset;
     public string deathScene;
     public bool showSightDistanceGizmo = true; // Toggle visibility of sight distance gizmo
+    public GameManager gameManager;
+    public GameObject firstPersonController;
 
     void Start()
     {
         walking = true;
         randNum = Random.Range(0, destinations.Count);
         currentDest = destinations[randNum];
+        // dest = dest - destLimit;
     }
 
     void Update()
@@ -43,7 +47,11 @@ public class EnemyAI : MonoBehaviour
         }
         if (chasing)
         {
-            dest = player.position;
+             // Calculate the direction vector from NPC to player
+            Vector3 directionToPlayer = (player.position - transform.position).normalized;
+            // Calculate the destination point slightly in front of the player
+            Vector3 destinationPoint = player.position - directionToPlayer * catchDistance;
+            //dest = player.position - destLimit;
             ai.destination = dest;
             ai.speed = chaseSpeed;
             // Smoothly transition to chase animation
@@ -51,9 +59,14 @@ public class EnemyAI : MonoBehaviour
             float distance = Vector3.Distance(player.position, ai.transform.position);
             if (distance <= catchDistance)
             {
-                player.gameObject.SetActive(false);
+                ai.isStopped = true;
+                walkSpeed = 0;
+                chaseSpeed = 0;
+                //StartCoroutine("LoseGameAfterTimer");
+                //player.gameObject.SetActive(false);
                 // Set jumpscare animation
-                aiAnim.SetTrigger("Death"); // Assuming "Death" animation is for jumpscare
+                aiAnim.Play("Cast03"); // Assuming "Death" animation is for jumpscare
+                transform.LookAt(player.position);
                 //StartCoroutine(deathRoutine());
                 chasing = false;
             }
@@ -75,7 +88,16 @@ public class EnemyAI : MonoBehaviour
             }
         }
     }
-
+    /*public IEnumerator LoseGameAfterTimer()
+    {
+        firstPersonController.GetComponent<FirstPersonController>().enabled = false;
+        yield return new WaitForSeconds(7.5f);
+        //walkSpeed = 2;
+        //chaseSpeed = 4;
+        gameManager.isGameLost = true;
+        gameManager.LoseGame();
+        yield break;
+    } */
     void OnDrawGizmosSelected()
     {
         if (showSightDistanceGizmo)
@@ -86,7 +108,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    IEnumerator stayIdle()
+   IEnumerator stayIdle()
     {
         idleTime = Random.Range(minIdleTime, maxIdleTime);
         yield return new WaitForSeconds(idleTime);
