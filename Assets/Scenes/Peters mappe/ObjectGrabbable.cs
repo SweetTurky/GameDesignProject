@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 
 public class ObjectGrabbable : MonoBehaviour
 {
@@ -9,18 +7,19 @@ public class ObjectGrabbable : MonoBehaviour
     private Transform objectGrabPointTransform;
     private bool firstPickup = true;
     private float lightTimer = 0f;
+    private float initialIntensity = 0f;
     public Light lanternLight;
     public SanityManager sanityManager;
-    public float maxRange = 10f;
-    private float initalRange;
-    private float refillTime = 30f;
+    public float lightTimerIncreaseAmount = 20f;
+    public SanityBar sanityBar;
+    bool lightRestored = false; // Flag to track if light has been restored
 
     private void Awake()
     {
         objectRigidbody = GetComponent<Rigidbody>();
         lanternLight = GetComponentInChildren<Light>();
+        initialIntensity = lanternLight.intensity;
         lightTimer = sanityManager.candleTimeLeft; 
-        initalRange = lanternLight.range;
     }
 
     public void Grab(Transform objectGrabPointTransform)
@@ -53,13 +52,24 @@ public class ObjectGrabbable : MonoBehaviour
             }
         }
     }
-
-    private IEnumerator FadeLightIntensity()
+    public void IncreaseLightTimer()
     {
-        float startIntensity = lanternLight.intensity;
-        float fadeDuration = lightTimer; // Fade duration equals the remaining time on the timer
+        lightTimer = sanityManager.candleTimeLeft;
+        Debug.Log(sanityManager.candleTimeLeft);
+        if (sanityManager.candleTimeLeft < 60f)
+        {
+            sanityManager.candleTimeLeft += 5f;
 
-        // Gradually decrease light intensity to 0 over fadeDuration seconds
+            lightTimer = sanityManager.candleTimeLeft; // Update lightTimer to reflect the change
+            Debug.Log(sanityManager.candleTimeLeft);
+        }
+        lanternLight.intensity = initialIntensity;
+    }
+
+
+   public IEnumerator FadeLightIntensity()
+    {
+        float fadeDuration = lightTimer;
         float elapsedTime = 0f;
         while (elapsedTime < fadeDuration)
         {
@@ -67,10 +77,19 @@ public class ObjectGrabbable : MonoBehaviour
             float progress = elapsedTime / fadeDuration;
 
             // Calculate the new intensity based on the progress
-            float newIntensity = Mathf.Lerp(startIntensity, 0f, progress);
+            float newIntensity = Mathf.Lerp(initialIntensity, 0f, progress);
 
             // Set the light intensity
             lanternLight.intensity = newIntensity;
+
+            // Check if the light has reached 0 intensity and has not been restored yet
+            if (newIntensity <= 0f && !lightRestored)
+            {
+                // Restore the light intensity and range
+                lanternLight.intensity = initialIntensity;
+                lanternLight.enabled = true;
+                lightRestored = true; // Set the flag to true to prevent further restoration
+            }
 
             // Update the candle time left in the SanityManager
             sanityManager.candleTimeLeft -= Time.deltaTime;
@@ -84,25 +103,17 @@ public class ObjectGrabbable : MonoBehaviour
 
         // Ensure light intensity is set to 0
         lanternLight.intensity = 0f;
-        lanternLight.range = 0f;
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        // Refill the lantern if the player picks up a refill object (assuming the object has a "Refill" tag)
-        if (other.CompareTag("Refill"))
+        // Deactivate the light when the timer reaches 0
+        if (lightTimer <= 0f)
         {
-            lightTimer += 30f; // Add 30 seconds to the timer
-            if (lightTimer > 60f) // Limit timer to maximum of 60 seconds
-            {
-                lightTimer = 60f;
-            }
-            Destroy(other.gameObject); // Destroy the refill object
+            lanternLight.enabled = false;
         }
     }
 
     private void FixedUpdate()
     {
+        
         if (objectGrabPointTransform != null)
         {
             float lerpSpeed = 10f;

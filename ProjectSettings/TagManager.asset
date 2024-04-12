@@ -10,6 +10,7 @@ TagManager:
   - Cabinet
   - Furniture
   - Refill
+  - HandHeldLightSource
   layers:
   - Default
   - TransparentFX
