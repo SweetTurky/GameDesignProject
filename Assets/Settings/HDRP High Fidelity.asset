@@ -57,7 +57,7 @@ MonoBehaviour:
     supportTerrainHole: 0
     lightProbeSystem: 0
     probeVolumeMemoryBudget: 1024
-    probeVolumeBlendingMemoryBudget: 128
+    probeVolumeBlendingMemoryBudget: 256
     supportProbeVolumeStreaming: 0
     probeVolumeSHBands: 1
     supportRayTracing: 0
@@ -92,7 +92,7 @@ MonoBehaviour:
       maxLocalVolumetricFogSize: 32
       maxLocalVolumetricFogOnScreen: 64
     hdShadowInitParams:
-      maxShadowRequests: 128
+      maxShadowRequests: 254
       directionalShadowsDepthBits: 16
       shadowFilteringQuality: 1
       areaShadowFilteringQuality: 0
