@@ -9,18 +9,20 @@ TagManager:
   - Lantern
   - Cabinet
   - Furniture
+  - Refill
+  - HandHeldLightSource
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - terrain2
+  - 
   - Water
   - UI
   - Lantern
+  - PostProcessing
   - 
-  - ClosetDoor
-  - Shelf
-  - DrawerDoor
+  - 
+  - 
   - 
   - 
   - 
