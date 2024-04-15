@@ -11,9 +11,11 @@ public class SanityManager : MonoBehaviour
     public float raycastDistance = 10f; // Adjust this value according to your scene
     public LayerMask raycastLayerMask; // Layer mask to specify which layers the raycast should hit
     private bool nearLightSource = false;
+    private bool holdingHandheldLight = false;
     private int lastLoggedInterval = 100;
     public AudioSource audioSource;
     public float candleTimeLeft = 60f;
+    public GameObject candleFlame;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -22,24 +24,39 @@ public class SanityManager : MonoBehaviour
             nearLightSource = true;
             Debug.Log("Near Light Source");
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("LightSource"))
+        if (other.CompareTag("HandHeldLightSource") && candleTimeLeft > 0)
         {
-            nearLightSource = false;
-            Debug.Log("Exiting Light Source");
+            nearLightSource = true;
+            holdingHandheldLight = true;
+            Debug.Log("Near Light Source");
         }
     }
 
+    private void OnTriggerExit(Collider other)
+   {
+    if (other.CompareTag("LightSource"))
+    {
+        nearLightSource = false;
+        Debug.Log("Exiting Light Source");
+    }
+    if (other.CompareTag("HandHeldLightSource"))
+    {
+            nearLightSource = false;
+            holdingHandheldLight = false; // Update holdingHandheldLight only when candleTimeLeft is zero or less
+            Debug.Log("Exiting Light Source");    
+    }
+}
+
     void Update()
     {
+        candleTimeLeft = Mathf.Clamp(candleTimeLeft, 0f, 60f);
+        candleFlame.SetActive(candleTimeLeft > 0);
         // Perform a raycast from the player towards the light source
         RaycastHit hit;
         bool raycastHitSomething = Physics.Raycast(transform.position, (transform.position - transform.forward), out hit, raycastDistance, raycastLayerMask);
+        bool shouldGainSanity = nearLightSource && (!holdingHandheldLight || (holdingHandheldLight && candleTimeLeft > 0 && !raycastHitSomething));
 
-        if (nearLightSource && !raycastHitSomething)
+        if (shouldGainSanity)
         {
             secondsSinceLightSource = 0f;
             playerSanity += sanityIncreaseRate;

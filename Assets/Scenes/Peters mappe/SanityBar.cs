@@ -6,7 +6,7 @@ public class SanityBar : MonoBehaviour
     public Slider sanitySlider;
     public Slider lightSlider;
     public SanityManager sanityManager; // Reference to your SanityManager script
-
+    public ObjectGrabbable objectGrabbable;
 
     void Start()
     {
@@ -15,6 +15,7 @@ public class SanityBar : MonoBehaviour
 
         lightSlider.maxValue = 60f;
         lightSlider.value = sanityManager.candleTimeLeft;
+        //UpdateLightBar();
     }
 
     void Update()
@@ -24,6 +25,29 @@ public class SanityBar : MonoBehaviour
 
         // Update the value of the lightSlider to match the timer value
         lightSlider.value = sanityManager.candleTimeLeft;
-    }
-}
 
+        // Update the light bar visual representation based on the remaining light time
+        //UpdateLightBar();
+    }
+
+    /* void UpdateLightBar()
+    {
+        // Ensure the candle time left is clamped between 0 and 60
+        float clampedCandleTimeLeft = Mathf.Clamp(sanityManager.candleTimeLeft, 0f, 60f);
+
+        // Calculate the normalized value for the light slider
+        //float normalizedLightTime = clampedCandleTimeLeft / 60f;
+
+        // Update the fill amount of the light slider
+        lightSlider.value = clampedCandleTimeLeft;
+    } */
+    public void UpdateLightBar()
+        {
+            // Calculate the normalized value for the light slider
+            float normalizedLightTime = sanityManager.candleTimeLeft / 60f;
+
+            // Update the fill amount of the light slider
+            lightSlider.value = normalizedLightTime * 60f;
+        }
+
+}
