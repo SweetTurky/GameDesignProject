@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 261.80035, g: 324.32297, b: 429.24155, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -206,6 +206,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 19343003}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &85196178 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 434198, guid: faf5fbcf2eab744fa9d7e49dc2378ad1,
+    type: 3}
+  m_PrefabInstance: {fileID: 364611742}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &132377236
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,6 +806,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: e0aa2c13c82d545468b80ad3adc6df70, type: 2}
+    - target: {fileID: 8264952, guid: faf5fbcf2eab744fa9d7e49dc2378ad1, type: 3}
+      propertyPath: m_Volume
+      value: 0.215
+      objectReference: {fileID: 0}
     - target: {fileID: 13740718, guid: faf5fbcf2eab744fa9d7e49dc2378ad1, type: 3}
       propertyPath: m_BlendShapeWeights.Array.data[1]
       value: -0
@@ -1159,7 +1169,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 434198, guid: faf5fbcf2eab744fa9d7e49dc2378ad1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 420142553}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 132958, guid: faf5fbcf2eab744fa9d7e49dc2378ad1,
         type: 3}
@@ -1222,6 +1236,11 @@ MonoBehaviour:
   - {fileID: 1452453375}
   - {fileID: 604939420}
   - {fileID: 1617988292}
+  jumpscareClips:
+  - {fileID: 8300000, guid: f946c9639ccbb784482b9106b4cfdc8e, type: 3}
+  - {fileID: 8300000, guid: 89fa57c72955d2a4ab01be9f729e3602, type: 3}
+  playerSpottedClips:
+  - {fileID: 8300000, guid: 7cf7d1caccf52e448a4c40cdf03efd21, type: 3}
   aiAnim: {fileID: 364611744}
   walkSpeed: 2
   chaseSpeed: 4
@@ -1236,10 +1255,27 @@ MonoBehaviour:
   jumpscareTime: 3
   walking: 0
   chasing: 0
+  playerSpotted: 0
   player: {fileID: 172413492}
+  currentDest: {fileID: 0}
+  teleportPoint1: {x: 0, y: 0, z: 0}
+  teleportPoint2: {x: 0, y: 0, z: 0}
+  dest: {x: 0, y: 0, z: 0}
   rayCastOffset: {x: 0, y: 0, z: 0}
   deathScene: 
   showSightDistanceGizmo: 1
+  gameManager: {fileID: 0}
+  firstPersonController: {fileID: 0}
+  audioSourceJumpscare: {fileID: 364611750}
+  audioSourceSpotted: {fileID: 420142552}
+  minIntervalBetweenClips: 0
+  maxIntervalBetweenClips: 0
+--- !u!82 &364611750 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8264952, guid: faf5fbcf2eab744fa9d7e49dc2378ad1,
+    type: 3}
+  m_PrefabInstance: {fileID: 364611742}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &387654649
 GameObject:
   m_ObjectHideFlags: 0
@@ -1345,6 +1381,134 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387654649}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &420142551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 420142553}
+  - component: {fileID: 420142552}
+  m_Layer: 0
+  m_Name: GhostAudio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &420142552
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420142551}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &420142553
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420142551}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 1.661}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 85196178}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &541217935
 GameObject:
   m_ObjectHideFlags: 1
@@ -1891,6 +2055,8 @@ MonoBehaviour:
   - {fileID: 1452453375}
   - {fileID: 604939420}
   - {fileID: 1617988292}
+  jumpscareClips: []
+  playerSpottedClips: []
   aiAnim: {fileID: 0}
   walkSpeed: 0
   chaseSpeed: 0
@@ -1905,10 +2071,21 @@ MonoBehaviour:
   jumpscareTime: 0
   walking: 0
   chasing: 0
+  playerSpotted: 0
   player: {fileID: 0}
+  currentDest: {fileID: 0}
+  teleportPoint1: {x: 0, y: 0, z: 0}
+  teleportPoint2: {x: 0, y: 0, z: 0}
+  dest: {x: 0, y: 0, z: 0}
   rayCastOffset: {x: 0, y: 0, z: 0}
   deathScene: 
   showSightDistanceGizmo: 1
+  gameManager: {fileID: 0}
+  firstPersonController: {fileID: 0}
+  audioSourceJumpscare: {fileID: 0}
+  audioSourceSpotted: {fileID: 0}
+  minIntervalBetweenClips: 0
+  maxIntervalBetweenClips: 0
 --- !u!114 &1014494037
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -69,10 +69,10 @@ public class EnemyAI : MonoBehaviour
                 if (hit.collider.gameObject.tag == "Player")
                 {
                     walking = false;
-                    chasing = true;
                     StopCoroutine("stayIdle");
                     StopCoroutine("chaseRoutine");
                     StartCoroutine("chaseRoutine");
+                    chasing = true;
 
                     // Play a random spotted clip when NPC spots the player
                     /*if (playerSpottedClips.Length > 0)
@@ -87,7 +87,7 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
-        if (chasing)
+        if (chasing == true)
         {
             if (!jumpscareSoundPlayed && jumpscareClips.Length > 0)
             {
@@ -121,10 +121,11 @@ public class EnemyAI : MonoBehaviour
                 aiAnim.Play("Cast03"); // Assuming "Death" animation is for jumpscare
                 transform.LookAt(player.position);
                 //StartCoroutine(deathRoutine());
-                chasing = false;  
+                chasing = false;
             }
         }
-        if (walking)
+
+        if (walking == true)
         {
             jumpscareSoundPlayed = false;
             dest = currentDest.position;
@@ -138,7 +139,7 @@ public class EnemyAI : MonoBehaviour
                 StopCoroutine("stayIdle");
                 StartCoroutine("stayIdle");
                 aiAnim.Play("IdleBreak"); // Assuming "Idle" animation is for idle
-                //walking = false;
+                walking = false;
             }
         }
     }
@@ -194,20 +195,20 @@ public class EnemyAI : MonoBehaviour
         chaseTime = Random.Range(minChaseTime, maxChaseTime);
         yield return new WaitForSeconds(chaseTime);
 
-        while (chasing)
-        {
-            // Play a random sound clip
-            if (playerSpottedClips.Length > 0)
-            {
-                int randomClipIndex = Random.Range(0, playerSpottedClips.Length);
-                AudioClip clip = playerSpottedClips[randomClipIndex];
-                audioSourceSpotted.PlayOneShot(clip, 1f);
-            }
 
-            // Wait between 2-4 seconds
-            float waitTime = Random.Range(2f, 4f);
-            yield return new WaitForSeconds(waitTime);
+
+        /*// Play a random sound clip
+        if (playerSpottedClips.Length > 0)
+        {
+            int randomClipIndex = Random.Range(0, playerSpottedClips.Length);
+            AudioClip clip = playerSpottedClips[randomClipIndex];
+            audioSourceSpotted.PlayOneShot(clip, 1f);
         }
+
+        // Wait between 2-4 seconds
+        float waitTime = Random.Range(2f, 4f);
+        yield return new WaitForSeconds(waitTime);*/
+
 
         chasing = false;
         randNum = Random.Range(0, destinations.Count);
