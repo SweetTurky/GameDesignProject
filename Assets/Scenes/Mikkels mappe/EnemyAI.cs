@@ -15,6 +15,8 @@ public class EnemyAI : MonoBehaviour
     public bool walking, chasing;
     // Define a flag to track whether the jumpscare sound has been played
     private bool jumpscareSoundPlayed = false;
+
+    public bool playerSpotted = false;
     public Transform player;
     public Transform currentDest;
 
@@ -29,7 +31,8 @@ public class EnemyAI : MonoBehaviour
     public bool showSightDistanceGizmo = true; // Toggle visibility of sight distance gizmo
     public GameManager gameManager;
     public GameObject firstPersonController;
-    public AudioSource audioSource;
+    public AudioSource audioSourceJumpscare;
+    public AudioSource audioSourceSpotted;
     public float minIntervalBetweenClips;
     public float maxIntervalBetweenClips;
 
@@ -66,20 +69,20 @@ public class EnemyAI : MonoBehaviour
                 if (hit.collider.gameObject.tag == "Player")
                 {
                     walking = false;
+                    chasing = true;
                     StopCoroutine("stayIdle");
                     StopCoroutine("chaseRoutine");
                     StartCoroutine("chaseRoutine");
-                    chasing = true;
-                    
-                // Play a random spotted clip when NPC spots the player
-                if (playerSpottedClips.Length > 0)
-                {
-                    int randomClipIndex = Random.Range(0, playerSpottedClips.Length);
-                    AudioClip clip = playerSpottedClips[randomClipIndex];
-                    AudioSource.PlayClipAtPoint(clip, transform.position, 1f);
-                }
 
-                    
+                    // Play a random spotted clip when NPC spots the player
+                    /*if (playerSpottedClips.Length > 0)
+                    {
+                        int randomClipIndex = Random.Range(0, playerSpottedClips.Length);
+                        AudioClip clip = playerSpottedClips[randomClipIndex];
+                        AudioSource.PlayClipAtPoint(clip, transform.position, 1f);
+                    }*/
+
+
                 }
             }
         }
@@ -90,10 +93,11 @@ public class EnemyAI : MonoBehaviour
             {
                 StartCoroutine(PlayRandomSpottedClips());
                 int randomIndex = Random.Range(0, jumpscareClips.Length);
-                audioSource.clip = jumpscareClips[randomIndex];
-                audioSource.Play();
+                audioSourceJumpscare.clip = jumpscareClips[randomIndex];
+                audioSourceJumpscare.Play();
                 jumpscareSoundPlayed = true;
             }
+
             // Calculate the direction vector from NPC to player
             Vector3 directionToPlayer = (player.position - transform.position).normalized;
             // Calculate the destination point slightly in front of the player
@@ -117,7 +121,7 @@ public class EnemyAI : MonoBehaviour
                 aiAnim.Play("Cast03"); // Assuming "Death" animation is for jumpscare
                 transform.LookAt(player.position);
                 //StartCoroutine(deathRoutine());
-                //chasing = false;  
+                chasing = false;  
             }
         }
         if (walking)
@@ -131,10 +135,10 @@ public class EnemyAI : MonoBehaviour
             if (ai.remainingDistance <= ai.stoppingDistance)
             {
                 //ai.speed = 0;
-                aiAnim.Play("IdleBreak"); // Assuming "Idle" animation is for idle
                 StopCoroutine("stayIdle");
                 StartCoroutine("stayIdle");
-                walking = false;
+                aiAnim.Play("IdleBreak"); // Assuming "Idle" animation is for idle
+                //walking = false;
             }
         }
     }
@@ -152,20 +156,20 @@ public class EnemyAI : MonoBehaviour
 
     IEnumerator PlayRandomSpottedClips()
     {
-        while (true)
-        {
-            // Pick a random clip from playerSpottedClips
-            int randomClipIndex = Random.Range(0, playerSpottedClips.Length);
-            AudioClip clip = playerSpottedClips[randomClipIndex];
+        // Pick a random clip from playerSpottedClips
+        int randomClipIndex = Random.Range(0, playerSpottedClips.Length);
+        AudioClip clip = playerSpottedClips[randomClipIndex];
 
-            // Play the clip as one-shot at NPC's current position
-            AudioSource.PlayClipAtPoint(clip, transform.position, 1f);
+        // Play the clip as one-shot at NPC's current position
+        audioSourceSpotted.PlayOneShot(clip, 1f);
+        playerSpotted = true;
 
-            // Wait for a random interval before playing the next clip
-            float interval = Random.Range(minIntervalBetweenClips, maxIntervalBetweenClips);
-            yield return new WaitForSeconds(interval);
-        }
+        // Wait for a random interval before playing the next clip
+        float interval = Random.Range(minIntervalBetweenClips, maxIntervalBetweenClips);
+        yield return new WaitForSeconds(interval);
+        playerSpotted = false;
     }
+
     void OnDrawGizmosSelected()
     {
         if (showSightDistanceGizmo)
@@ -189,12 +193,26 @@ public class EnemyAI : MonoBehaviour
     {
         chaseTime = Random.Range(minChaseTime, maxChaseTime);
         yield return new WaitForSeconds(chaseTime);
-        walking = true;
+
+        while (chasing)
+        {
+            // Play a random sound clip
+            if (playerSpottedClips.Length > 0)
+            {
+                int randomClipIndex = Random.Range(0, playerSpottedClips.Length);
+                AudioClip clip = playerSpottedClips[randomClipIndex];
+                audioSourceSpotted.PlayOneShot(clip, 1f);
+            }
+
+            // Wait between 2-4 seconds
+            float waitTime = Random.Range(2f, 4f);
+            yield return new WaitForSeconds(waitTime);
+        }
+
         chasing = false;
         randNum = Random.Range(0, destinations.Count);
         currentDest = destinations[randNum];
-        // Stop the coroutine when the NPC stops chasing
-        StopCoroutine(PlayRandomSpottedClips());
+        walking = true;
     }
 
 
