@@ -1261,6 +1261,9 @@ MonoBehaviour:
   walking: 0
   chasing: 0
   player: {fileID: 1353685749}
+  currentDest: {fileID: 0}
+  teleportPoint1: {x: 0, y: 0, z: 0}
+  teleportPoint2: {x: 0, y: 0, z: 0}
   dest: {x: 0, y: 0, z: 0}
   rayCastOffset: {x: 0, y: 0, z: 0}
   deathScene: 
@@ -2350,12 +2353,45 @@ MonoBehaviour:
       colorBlindnessType: 0
       colorBlindnessStrength: 1
   m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
-  m_ShowToolkit: 0
-  m_ShowCustomSorter: 0
+  m_ShowToolkit: 1
+  m_ShowCustomSorter: 1
   breakBeforeColorGrading: 0
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &1056462517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056462506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 72b1e481627f3ab4d8d345cd9a2e5a97, type: 2}
+--- !u!114 &1056462518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056462506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7424a05add17fae459b0333d38707548, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volume: {fileID: 1056462517}
+  minIntensity: 0
+  maxIntensity: 1
+  sanityManager: {fileID: 1353685742}
 --- !u!1 &1083742602 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1990782534584620, guid: 68f8cf3372c588f4a94bf2c9bd255d3b,
@@ -3130,6 +3166,9 @@ MonoBehaviour:
   audioSource: {fileID: 1056462511}
   candleTimeLeft: 60
   candleFlame: {fileID: 1593828038}
+  maxIntensityOffset: 0.2
+  minIntensityOffset: -0.2
+  transitionDuration: 5
 --- !u!114 &1353685743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4333,6 +4372,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1056462516}
+    - targetCorrespondingSourceObject: {fileID: 4459864851310106424, guid: 6bacecc4f3df9584198879c73a6b6c36,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1056462517}
+    - targetCorrespondingSourceObject: {fileID: 4459864851310106424, guid: 6bacecc4f3df9584198879c73a6b6c36,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1056462518}
   m_SourcePrefab: {fileID: 100100000, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
 --- !u!1 &1735069795 stripped
 GameObject:
@@ -4713,6 +4760,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6628883419796353706, guid: 2d1359e2d67a4c74e9e748e1bfee3c7d,
+        type: 3}
+      propertyPath: cameraToLookAt
+      value: 
+      objectReference: {fileID: 1056462513}
     - target: {fileID: 8373175606595223900, guid: 2d1359e2d67a4c74e9e748e1bfee3c7d,
         type: 3}
       propertyPath: m_Name

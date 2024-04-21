@@ -13,9 +13,13 @@ public class CandlePickup : MonoBehaviour
             if(objectGrabbable != null)
             {
                 objectGrabbable.IncreaseLightTimer();
-                objectGrabbable.FadeLightIntensity();
             }    
+            
             Destroy(gameObject);
         }
+    }
+    void Update()
+    {
+        transform.localRotation = Quaternion.Euler(0.01f, Time.time * 100f, 0);
     }
 }
