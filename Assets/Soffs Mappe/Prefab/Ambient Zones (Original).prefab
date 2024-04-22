@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1282089625536838280
+--- !u!1 &2962974844500325640
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,7 +8,73 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1666810461961193260}
+  - component: {fileID: 6385099927074595796}
+  - component: {fileID: 948942122844832013}
+  m_Layer: 0
+  m_Name: Ambient Zone (Original)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6385099927074595796
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2962974844500325640}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -18.401289, y: 1.2951317, z: -2.8634987}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5361476482765704703}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &948942122844832013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2962974844500325640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d37e5385efd7064cb1d54c94960acae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Resolution: 20
+  m_Appearance:
+    pathColor: {r: 0, g: 1, b: 0, a: 1}
+    inactivePathColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    width: 0.2
+  m_Looped: 1
+  m_Waypoints:
+  - position: {x: 2.8254976, y: 0, z: -5}
+    tangent: {x: -0.021648407, y: 0, z: 0}
+    roll: 0
+  - position: {x: 6.5136623, y: 0, z: -0.2748165}
+    tangent: {x: 1.9266434, y: 0, z: -0.1224947}
+    roll: 0
+  - position: {x: 15.970992, y: 0, z: -0.3973112}
+    tangent: {x: 2.075101, y: 0, z: -0.67833805}
+    roll: 0
+  - position: {x: 19.137342, y: 0, z: -5.2348547}
+    tangent: {x: -0.03426552, y: 0, z: -4.8375435}
+    roll: 0
+  - position: {x: 5.77384, y: 0, z: -10.072398}
+    tangent: {x: -3.0842094, y: 0, z: 0.05419159}
+    roll: 0
+--- !u!1 &7621595320781518393
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5361476482765704703}
   m_Layer: 0
   m_Name: Ambient Zones (Original)
   m_TagString: Untagged
@@ -16,24 +82,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1666810461961193260
+--- !u!4 &5361476482765704703
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1282089625536838280}
+  m_GameObject: {fileID: 7621595320781518393}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.16129, y: -3.9251318, z: -5.8465014}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.21718907, y: 0.7679553, z: -19.709133}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7211779135487814179}
-  - {fileID: 7349947858766369849}
+  - {fileID: 6385099927074595796}
+  - {fileID: 5179593416738682653}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4384083753422373753
+--- !u!1 &8917592991545410299
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,37 +107,54 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7349947858766369849}
-  - component: {fileID: 7707659057325445672}
+  - component: {fileID: 5179593416738682653}
+  - component: {fileID: 7179528610131758510}
+  - component: {fileID: 2766603711901411684}
   m_Layer: 0
-  m_Name: Ambient Cart
+  m_Name: Ambient Cart (Org)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7349947858766369849
+--- !u!4 &5179593416738682653
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4384083753422373753}
+  m_GameObject: {fileID: 8917592991545410299}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -11.435248, y: 3.6041129, z: -4.332015}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1666810461961193260}
+  m_Father: {fileID: 5361476482765704703}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &7707659057325445672
+--- !u!114 &7179528610131758510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8917592991545410299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8aa3679ed72c0c4880bc23010808451, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Path: {fileID: 948942122844832013}
+  Player: {fileID: 0}
+  ambientAudioSource: {fileID: 2766603711901411684}
+  fadeOutDuration: 3
+--- !u!82 &2766603711901411684
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4384083753422373753}
+  m_GameObject: {fileID: 8917592991545410299}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -161,69 +244,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &8303462414376248711
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7211779135487814179}
-  - component: {fileID: 3196933791739959881}
-  m_Layer: 0
-  m_Name: Ambient Zone
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7211779135487814179
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8303462414376248711}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18.401289, y: 1.2951317, z: -2.8634987}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1666810461961193260}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3196933791739959881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8303462414376248711}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d37e5385efd7064cb1d54c94960acae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Resolution: 20
-  m_Appearance:
-    pathColor: {r: 0, g: 1, b: 0, a: 1}
-    inactivePathColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    width: 0.2
-  m_Looped: 1
-  m_Waypoints:
-  - position: {x: 2.8254976, y: 0, z: -5}
-    tangent: {x: -0.021648407, y: 0, z: 0}
-    roll: 0
-  - position: {x: 6.5136623, y: 0, z: -0.2748165}
-    tangent: {x: 1.9266434, y: 0, z: -0.1224947}
-    roll: 0
-  - position: {x: 15.970992, y: 0, z: -0.3973112}
-    tangent: {x: 2.075101, y: 0, z: -0.67833805}
-    roll: 0
-  - position: {x: 19.137342, y: 0, z: -5.2348547}
-    tangent: {x: -0.03426552, y: 0, z: -4.8375435}
-    roll: 0
-  - position: {x: 5.77384, y: 0, z: -10.072398}
-    tangent: {x: -3.0842094, y: 0, z: 0.05419159}
-    roll: 0
