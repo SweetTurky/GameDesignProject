@@ -13,6 +13,10 @@ public class ObjectGrabbable : MonoBehaviour
     public float lightTimerIncreaseAmount = 20f;
     public SanityBar sanityBar;
     bool lightRestored = false; // Flag to track if light has been restored
+    float elapsedTime = 0f;
+    private bool candleTimeDecreasedThisFrame = false;
+    private bool firstCandlePickup = true;
+
 
     private void Awake()
     {
@@ -54,7 +58,7 @@ public class ObjectGrabbable : MonoBehaviour
     }
     public void IncreaseLightTimer()
     {
-        lightTimer = sanityManager.candleTimeLeft;
+        //lightTimer = sanityManager.candleTimeLeft;
         Debug.Log(sanityManager.candleTimeLeft);
         if (sanityManager.candleTimeLeft < 60f)
         {
@@ -62,6 +66,7 @@ public class ObjectGrabbable : MonoBehaviour
 
             lightTimer = sanityManager.candleTimeLeft; // Update lightTimer to reflect the change
             Debug.Log(sanityManager.candleTimeLeft);
+            StartCoroutine(FadeLightIntensity());
         }
         lanternLight.intensity = initialIntensity;
     }
@@ -69,8 +74,9 @@ public class ObjectGrabbable : MonoBehaviour
 
    public IEnumerator FadeLightIntensity()
     {
-        float fadeDuration = lightTimer;
-        float elapsedTime = 0f;
+        float fadeDuration = sanityManager.candleTimeLeft;
+        elapsedTime = 0f;
+        
         while (elapsedTime < fadeDuration)
         {
             // Calculate the progress based on the elapsed time
@@ -85,14 +91,20 @@ public class ObjectGrabbable : MonoBehaviour
             // Check if the light has reached 0 intensity and has not been restored yet
             if (newIntensity <= 0f && !lightRestored)
             {
-                // Restore the light intensity and range
-                lanternLight.intensity = initialIntensity;
-                lanternLight.enabled = true;
+                // Restore the light intensity
+                RestoreLight();
                 lightRestored = true; // Set the flag to true to prevent further restoration
             }
 
-            // Update the candle time left in the SanityManager
-            sanityManager.candleTimeLeft -= Time.deltaTime;
+            if (!candleTimeDecreasedThisFrame)
+            {
+                DecreaseCandleTime();
+                candleTimeDecreasedThisFrame = true; // Set the flag to true to indicate that the decrease has been applied
+            }
+            else
+            {
+                candleTimeDecreasedThisFrame = false; // Reset the flag for the next frame
+            }
 
             // Wait for the next frame
             yield return null;
@@ -110,15 +122,33 @@ public class ObjectGrabbable : MonoBehaviour
             lanternLight.enabled = false;
         }
     }
-
+    private void RestoreLight()
+    {
+    // Restore the light intensity
+    lanternLight.intensity = initialIntensity;
+    lanternLight.enabled = true;
+    // Reset the flag when the light is restored
+    candleTimeDecreasedThisFrame = false;
+    }
+    private void DecreaseCandleTime()
+    {
+        //sanityManager.candleTimeLeft -= Time.deltaTime;
+    }
+    void Update()
+    {
+        	if (firstPickup == false)
+        {
+            sanityManager.candleTimeLeft -= Time.deltaTime;
+        }
+    }
     private void FixedUpdate()
     {
-        
         if (objectGrabPointTransform != null)
         {
             float lerpSpeed = 10f;
             Vector3 newPosition = Vector3.Lerp(transform.position, objectGrabPointTransform.position, Time.deltaTime * lerpSpeed);
             objectRigidbody.MovePosition(objectGrabPointTransform.position);
         }
+        
     }
 }

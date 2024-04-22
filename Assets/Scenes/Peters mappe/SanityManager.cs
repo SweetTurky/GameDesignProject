@@ -17,6 +17,20 @@ public class SanityManager : MonoBehaviour
     public float candleTimeLeft = 60f;
     public GameObject candleFlame;
 
+    public float maxIntensityOffset = 0.2f; // Maximum intensity offset based on sanity
+    public float minIntensityOffset = -0.2f; // Minimum intensity offset based on sanity
+    public float transitionDuration = 5f; // Duration of transition between intensity offsets
+
+    private float targetMaxIntensityOffset; // Target maximum intensity offset
+    private float targetMinIntensityOffset; // Target minimum intensity offset
+    private float intensityTransitionTimer; // Timer for intensity transition
+    private float currentMaxIntensityOffset; // Current maximum intensity offset
+    private float currentMinIntensityOffset; // Current minimum intensity offset
+
+    void Start()
+    {
+        UpdateIntensityOffset();
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("LightSource"))
@@ -47,6 +61,39 @@ public class SanityManager : MonoBehaviour
     }
 }
 
+    private void UpdateIntensityOffset()
+    {
+        // Calculate target intensity offsets based on player sanity
+        if (playerSanity >= 75f)
+        {
+            targetMaxIntensityOffset = maxIntensityOffset * 0.2f;
+            targetMinIntensityOffset = minIntensityOffset * 0.2f;
+        }
+        else if (playerSanity >= 50f)
+        {
+            targetMaxIntensityOffset = maxIntensityOffset * 0.3f;
+            targetMinIntensityOffset = minIntensityOffset * 0.3f;
+        }
+        else if (playerSanity >= 25f)
+        {
+            targetMaxIntensityOffset = maxIntensityOffset * 0.4f;
+            targetMinIntensityOffset = minIntensityOffset * 0.4f;
+        }
+        else
+        {
+            targetMaxIntensityOffset = maxIntensityOffset;
+            targetMinIntensityOffset = minIntensityOffset;
+        }
+
+        // Start intensity transition
+        currentMaxIntensityOffset = targetMaxIntensityOffset;
+        currentMinIntensityOffset = targetMinIntensityOffset;
+        intensityTransitionTimer = transitionDuration;
+    }
+    public float GetSanityPercentage()
+    {
+        return playerSanity / 100f; // Return sanity as percentage (0 to 1)
+    }
     void Update()
     {
         candleTimeLeft = Mathf.Clamp(candleTimeLeft, 0f, 60f);
@@ -114,6 +161,17 @@ public class SanityManager : MonoBehaviour
         {
             Debug.Log("Player Sanity between 20 - 0!");
             lastLoggedInterval = 0;
+        }
+
+        // Update intensity offsets if transition is in progress
+        if (intensityTransitionTimer > 0f)
+        {
+            intensityTransitionTimer -= Time.deltaTime;
+            float t = 1f - (intensityTransitionTimer / transitionDuration);
+
+            // Interpolate between current and target intensity offsets
+            maxIntensityOffset = Mathf.Lerp(currentMaxIntensityOffset, targetMaxIntensityOffset, t);
+            minIntensityOffset = Mathf.Lerp(currentMinIntensityOffset, targetMinIntensityOffset, t);
         }
     }
 }
