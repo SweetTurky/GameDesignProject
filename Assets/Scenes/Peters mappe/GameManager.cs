@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,6 +27,7 @@ public class GameManager : MonoBehaviour
     private HashSet<GameObject> collectedNotes = new HashSet<GameObject>();
     public AudioListener audioListener;
     private ObjectGrabbable objectGrabbable;
+    public TMP_Text notesTextField;
 
     public float pickUpDistance = 2f; // Distance for raycasting to pick up objects
     public LayerMask pickUpLayerMask; // Layer mask for objects that can be picked up
@@ -51,7 +54,7 @@ public class GameManager : MonoBehaviour
         instruction.SetActive(false);
         lanternInstruction.SetActive(false);
         enableInteraction.SetActive(true);
-
+        UpdateNotesTextField();
     }
 
     void OnTriggerEnter(Collider collision)
@@ -99,21 +102,21 @@ public class GameManager : MonoBehaviour
                     enableInteraction.SetActive(false);
                     interact = false;
 
-                    noteAppear.LookAtNote();
+                    //noteAppear.LookAtNote();
 
                 if (!noteAppear.isVisible)
                 {
                     Debug.Log("Note is not visible, proceed to collect.");
 
                     // Check if the collided object is a note and hasn't been collected yet
-                    Collider[] colliders = Physics.OverlapSphere(transform.position, 0.5f);
+                    Collider[] colliders = Physics.OverlapSphere(transform.position, 1.5f);
                     foreach (Collider collider in colliders)
                     {
                         
                         if (collider.CompareTag("Note") && !collectedNotes.Contains(collider.gameObject))
                         {
                             CollectNote();
-                            
+                            noteAppear.LookAtNote();
                             collectedNotes.Add(collider.gameObject);
                             break; // Exit loop after collecting one note
                             interact = true;
@@ -155,25 +158,26 @@ public class GameManager : MonoBehaviour
     {
         notesCollected++;
         Debug.Log("Note collected! Total notes: " + notesCollected);
-
-        // Check win condition
+        UpdateNotesTextField();
+        
         if (notesCollected >= totalNotes)
         {
             WinGame();
         }
     }
 
-    /* public void CollectLantern()
+    void UpdateNotesTextField()
     {
-        lanternHeld == true;
-
-        lanternInstruction.SetActive(false);
+        if (notesTextField != null)
+        {
+            notesTextField.text = "Notes: " + notesCollected + " / " + totalNotes;
+            Debug.Log("Notes: " + notesCollected + " / " + totalNotes);
+        }
+        else
+        {
+            Debug.LogWarning("UI Text field for notes count is not assigned!");
+        }
     }
-
-    public void DropLantern()
-    {
-        lanternHeld = false;
-    }*/
 
     public void LoseGame()
     {

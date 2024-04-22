@@ -18,9 +18,12 @@ public class NoteAppear : MonoBehaviour
 
     public void LookAtNote()
     {
+         // Toggle visibility of the note image
+        /* noteImage.enabled = !noteImage.enabled;
+        isVisible = noteImage.enabled; */ // Update the isVisible variable
+    
         if (noteImage.enabled == false)
         {
-
             // Note is not visible, make it visible
             noteImage.enabled = true;
             isVisible = true; // Update the isVisible variable
@@ -36,4 +39,3 @@ public class NoteAppear : MonoBehaviour
     }
 
 }
-

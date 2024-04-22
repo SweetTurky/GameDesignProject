@@ -30,7 +30,7 @@ public class LensDistortionController : MonoBehaviour
 
     private void Update()
     {
-        if (sanityManager != null)
+        if (sanityManager != null && sanityManager.playerSanity < 100)
         {
             // Calculate the intensity offset based on the player's sanity level
             float sanityPercentage = sanityManager.GetSanityPercentage();
@@ -44,9 +44,62 @@ public class LensDistortionController : MonoBehaviour
 
     private float GetIntensityOffset(float sanityPercentage)
     {
-        // Use a sine wave function to interpolate between minIntensity and maxIntensity continuously
-        float frequency = 1f; // Adjust the frequency of the oscillation
+        float inputRange = 25f; // Adjust this value to control the range for each sanity level
+        float inputMin = ((100f - inputRange) / 100f);
+        float inputMax = (1f - inputMin);
+        float normalizedSanity = Mathf.InverseLerp(inputMin, inputMax, (sanityPercentage * 1f));
+
+         if(sanityPercentage < 50)
+        {
+            normalizedSanity = normalizedSanity * 0.5f;
+        } 
+        else if(sanityPercentage < 40)
+        {
+            normalizedSanity = normalizedSanity * 0.45f;
+        } 
+        else if(sanityPercentage < 30)
+        {
+            normalizedSanity = normalizedSanity * 0.4f;
+        } 
+        else if(sanityPercentage < 20)
+        {
+            normalizedSanity = normalizedSanity * 0.35f;
+        } 
+        else if(sanityPercentage < 10)
+        {
+            normalizedSanity = normalizedSanity * 0.3f;
+        } 
+
+        float targetMin = 0f;
+        float targetMax = 0f;
+
+        // Define the target intensity range based on sanity percentage
+        if (sanityPercentage >= 75f)
+        {
+            targetMin = 0f;
+            targetMax = 0f;
+        }
+        else if (sanityPercentage >= 50f)
+        {
+            targetMin = -0.1f;
+            targetMax = 0.1f;
+        }
+        else if (sanityPercentage >= 25f)
+        {
+            targetMin = -0.15f;
+            targetMax = 0.15f;
+        }
+        else
+        {
+            targetMin = -0.2f;
+            targetMax = 0.2f;
+        }
+
+        // Interpolate between the target intensity range based on the sine wave
+        float frequency = 0.2f; // Adjust the frequency of the oscillation
         float phase = Mathf.Sin(2f * Mathf.PI * frequency * Time.time + timeOffset);
-        return Mathf.InverseLerp(-1f, 1f, phase);
+        float intensityOffset = Mathf.Lerp(targetMin, targetMax, (phase + 1f) / 2f);
+
+        return Mathf.Lerp(normalizedSanity, intensityOffset, Mathf.Abs(phase)); // Use the sine wave to interpolate between normalized sanity and intensity offset
     }
 }
