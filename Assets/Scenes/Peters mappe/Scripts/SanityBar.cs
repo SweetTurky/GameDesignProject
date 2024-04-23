@@ -30,17 +30,6 @@ public class SanityBar : MonoBehaviour
         //UpdateLightBar();
     }
 
-    /* void UpdateLightBar()
-    {
-        // Ensure the candle time left is clamped between 0 and 60
-        float clampedCandleTimeLeft = Mathf.Clamp(sanityManager.candleTimeLeft, 0f, 60f);
-
-        // Calculate the normalized value for the light slider
-        //float normalizedLightTime = clampedCandleTimeLeft / 60f;
-
-        // Update the fill amount of the light slider
-        lightSlider.value = clampedCandleTimeLeft;
-    } */
     public void UpdateLightBar()
         {
             // Calculate the normalized value for the light slider
