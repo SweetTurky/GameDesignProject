@@ -1,0 +1,299 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3260802889445019773
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5310280222337677739}
+  - component: {fileID: 1029002926135663352}
+  - component: {fileID: 6624217607417331046}
+  m_Layer: 0
+  m_Name: Ambient Cart (Org)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5310280222337677739
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3260802889445019773}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -11.435248, y: 3.6041129, z: -4.332015}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6224722173364096823}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1029002926135663352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3260802889445019773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0807a624c2ed05e4b94cfaa0f98cd395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Path: {fileID: 1452910366201385350}
+  Player: {fileID: 0}
+  ambientAudioSource: {fileID: 6624217607417331046}
+  fadeOutDuration: 1
+  minHeight: 3
+  maxHeight: -11.8
+--- !u!82 &6624217607417331046
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3260802889445019773}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 7ca6c46c348b5ce49b810a3e6bbb61ca, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.3
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!1 &6202313799403054860
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6224722173364096823}
+  m_Layer: 0
+  m_Name: Ambient Zones (Original) 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6224722173364096823
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6202313799403054860}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -12.2, y: 2.3079553, z: 56.65}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5978678588814573855}
+  - {fileID: 5310280222337677739}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9105255890292298109
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5978678588814573855}
+  - component: {fileID: 1452910366201385350}
+  m_Layer: 0
+  m_Name: Ambient Zone (Original)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5978678588814573855
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9105255890292298109}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -14.23, y: -19.1, z: -2.8634987}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6224722173364096823}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1452910366201385350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9105255890292298109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d37e5385efd7064cb1d54c94960acae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Resolution: 20
+  m_Appearance:
+    pathColor: {r: 0, g: 1, b: 0, a: 1}
+    inactivePathColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    width: 0.2
+  m_Looped: 1
+  m_Waypoints:
+  - position: {x: 0.43338394, y: 0, z: 48.057323}
+    tangent: {x: -0.021648407, y: 0, z: -0.5274544}
+    roll: 0
+  - position: {x: 20.69061, y: 0, z: 46.827938}
+    tangent: {x: 0.16402245, y: 0, z: -0.12050247}
+    roll: 0
+  - position: {x: 20.867022, y: 0.0000009536743, z: 29.471615}
+    tangent: {x: -0.11862564, y: 0.000000014363699, z: -0.7829704}
+    roll: 0
+  - position: {x: 37.043686, y: 0.0000009536743, z: 28.588772}
+    tangent: {x: -0.07458265, y: -2.1599468e-10, z: -0.99721485}
+    roll: 0
+  - position: {x: 66.21097, y: 0.0000009536743, z: 27.016754}
+    tangent: {x: -0.0073818034, y: 4.5204877e-12, z: -0.9999727}
+    roll: 0
+  - position: {x: 71.234955, y: 0.0000009536743, z: 16.140041}
+    tangent: {x: 0.05030416, y: -2.807344e-13, z: -0.99873394}
+    roll: 0
+  - position: {x: 75.09561, y: 0.0000009536743, z: 6.3300276}
+    tangent: {x: 3.269127, y: 0, z: -1.6270647}
+    roll: 0
+  - position: {x: 65.47865, y: 0.0000009536743, z: 6.29081}
+    tangent: {x: -0.99897003, y: 0, z: -0.23821354}
+    roll: 0
+  - position: {x: 45.861847, y: 0.0000009536743, z: 5.9705925}
+    tangent: {x: -0.9997016, y: 0, z: -0.024426322}
+    roll: 0
+  - position: {x: 44.64041, y: 0.0000009536743, z: -14.490585}
+    tangent: {x: -0.99966824, y: 0, z: -0.025756845}
+    roll: 0
+  - position: {x: 39.197845, y: 0.0000009536743, z: -14.0423355}
+    tangent: {x: -0.76769257, y: 0, z: 0.96853924}
+    roll: 0
+  - position: {x: 39.22233, y: 0.0000009536743, z: 5.815975}
+    tangent: {x: -0.99984837, y: 0, z: -0.017414238}
+    roll: 0
+  - position: {x: 35.82225, y: 0.0000009536743, z: 5.952086}
+    tangent: {x: -0.0020523071, y: 0, z: 0.576375}
+    roll: 0
+  - position: {x: 35.307552, y: 0.0000009536743, z: 20.435375}
+    tangent: {x: -0.9997558, y: -3.2700402e-13, z: 0.022099683}
+    roll: 0
+  - position: {x: 20.443066, y: 0.0000009536743, z: 19.969707}
+    tangent: {x: -0.45872307, y: 0, z: -0.99824333}
+    roll: 0
+  - position: {x: 22.502422, y: 0.0000009536743, z: -1.0414963}
+    tangent: {x: -0.0029029846, y: 0, z: -2.8315191}
+    roll: 0
+  - position: {x: 16.93853, y: 0.0000019073486, z: -6.505686}
+    tangent: {x: -1.8190823, y: 0, z: 1.4617138}
+    roll: 0
+  - position: {x: 16.4017, y: 0.0000009536743, z: -17.425274}
+    tangent: {x: -0.0455513, y: 0, z: -3.0658264}
+    roll: 0
+  - position: {x: 0.19690323, y: 0.0000009536743, z: -17.97445}
+    tangent: {x: -0.37629318, y: 0, z: -0.056293488}
+    roll: 0
+  - position: {x: 0.10759735, y: 0.0000009536743, z: -5.5194206}
+    tangent: {x: -0.4165781, y: 0, z: 0.9090999}
+    roll: 0
+  - position: {x: -7.561363, y: 0.0000009536743, z: -4.669422}
+    tangent: {x: -0.28087616, y: 0, z: 1.4374332}
+    roll: 0
+  - position: {x: 0, y: 0, z: 0}
+    tangent: {x: 0, y: 0, z: 0}
+    roll: 0
