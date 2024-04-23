@@ -127,10 +127,10 @@ public class GameManager : MonoBehaviour
                 
             }
 
-        else if (noteAppear.isVisible && Input.GetKeyDown(KeyCode.E))
+        /*else if (noteAppear.isVisible && Input.GetKeyDown(KeyCode.E))
             {
                 noteAppear.LookAtNote();
-            }
+            }*/
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && objectGrabbable == null)
         {
