@@ -18,11 +18,8 @@ public class NoteAppear : MonoBehaviour
 
     public void LookAtNote()
     {
-         // Toggle visibility of the note image
-        /* noteImage.enabled = !noteImage.enabled;
-        isVisible = noteImage.enabled; */ // Update the isVisible variable
-    
-        if (noteImage.enabled == false)
+        // Toggle visibility of the note image
+        if (!isVisible)
         {
             // Note is not visible, make it visible
             noteImage.enabled = true;
@@ -32,10 +29,16 @@ public class NoteAppear : MonoBehaviour
         else
         {
             // Note is visible, make it invisible
+            HideNote();
+        }
+    }
+
+    public void HideNote()
+        {
+            // Hide the note image and make it invisible
             noteImage.enabled = false;
             isVisible = false; // Update the isVisible variable
             noteGameObject.SetActive(true);
         }
-    }
 
 }

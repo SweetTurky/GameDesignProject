@@ -94,38 +94,38 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-            if (Input.GetKeyDown(KeyCode.E) && interact == true && noteInteraction == true)
+            if (Input.GetKeyDown(KeyCode.E) && interact == true)
+    {
+        // If the canvas is already visible, hide it
+        if (noteAppear.isVisible)
+        {
+            noteAppear.LookAtNote();
+            interact = false; // Ensure interaction is disabled after putting down the note
+            return;
+        }
+
+        // If the player is in range to interact with a note and the note is not already collected
+        if (noteInteraction == true && !noteAppear.isVisible)
+        {
+            instruction.SetActive(false);
+            enableInteraction.SetActive(false);
+            interact = false;
+
+            // Check if the collided object is a note and hasn't been collected yet
+            Collider[] colliders = Physics.OverlapSphere(transform.position, 1.5f);
+            foreach (Collider collider in colliders)
             {
-                Debug.Log("E key is pressed and interact is true."); 
-                
-                    instruction.SetActive(false);
-                    enableInteraction.SetActive(false);
-                    interact = false;
-
-                    //noteAppear.LookAtNote();
-
-                if (!noteAppear.isVisible)
+                if (collider.CompareTag("Note") && !collectedNotes.Contains(collider.gameObject))
                 {
-                    Debug.Log("Note is not visible, proceed to collect.");
-
-                    // Check if the collided object is a note and hasn't been collected yet
-                    Collider[] colliders = Physics.OverlapSphere(transform.position, 1.5f);
-                    foreach (Collider collider in colliders)
-                    {
-                        
-                        if (collider.CompareTag("Note") && !collectedNotes.Contains(collider.gameObject))
-                        {
-                            CollectNote();
-                            noteAppear.LookAtNote();
-                            collectedNotes.Add(collider.gameObject);
-                            break; // Exit loop after collecting one note
-                            interact = true;
-                        }
-                        
-                    }
+                    CollectNote();
+                    noteAppear.LookAtNote();
+                    collectedNotes.Add(collider.gameObject);
+                    interact = true;
+                    break; // Exit loop after collecting one note
                 }
-                
             }
+        }
+    }
 
         /*else if (noteAppear.isVisible && Input.GetKeyDown(KeyCode.E))
             {
@@ -156,15 +156,31 @@ public class GameManager : MonoBehaviour
 
     public void CollectNote()
     {
-        notesCollected++;
-        Debug.Log("Note collected! Total notes: " + notesCollected);
-        UpdateNotesTextField();
-        noteInteraction = false;
-        if (notesCollected >= totalNotes)
+        if (noteAppear.isVisible)
         {
-            WinGame();
+            // Check if the note has already been collected
+            if (!collectedNotes.Contains(noteAppear.noteGameObject))
+            {
+                // Increment the total number of notes collected
+                notesCollected++;
+                Debug.Log("Note collected! Total notes: " + notesCollected);
+                UpdateNotesTextField();
+
+                // Add the note to the set of collected notes
+                collectedNotes.Add(noteAppear.noteGameObject);
+
+                // Check if all notes have been collected
+                if (notesCollected >= totalNotes)
+                {
+                    WinGame();
+                }
+            }
+
+            // Hide the note canvas
+            noteAppear.HideNote();
         }
     }
+
 
     void UpdateNotesTextField()
     {
