@@ -159,7 +159,7 @@ public class GameManager : MonoBehaviour
         notesCollected++;
         Debug.Log("Note collected! Total notes: " + notesCollected);
         UpdateNotesTextField();
-        
+        noteInteraction = false;
         if (notesCollected >= totalNotes)
         {
             WinGame();
