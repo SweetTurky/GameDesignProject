@@ -62,7 +62,7 @@ public class ObjectGrabbable : MonoBehaviour
         Debug.Log(sanityManager.candleTimeLeft);
         if (sanityManager.candleTimeLeft < 60f)
         {
-            sanityManager.candleTimeLeft += 5f;
+            sanityManager.candleTimeLeft += lightTimerIncreaseAmount;
 
             lightTimer = sanityManager.candleTimeLeft; // Update lightTimer to reflect the change
             Debug.Log(sanityManager.candleTimeLeft);
