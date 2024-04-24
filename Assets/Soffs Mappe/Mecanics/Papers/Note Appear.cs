@@ -9,13 +9,13 @@ public class NoteAppear : MonoBehaviour
     [SerializeField] public GameObject noteGameObject;
     [SerializeField] private GameObject noteCanvas; // Reference to the canvas GameObject
 
-    private bool isVisible = false;
+    public bool isVisible = false;
 
     void Start()
     {
         // Ensure the canvas is initially disabled
         noteCanvas.SetActive(false);
-
+        noteImage.enabled = false;
         if (noteCanvas == null)
         {
             Debug.LogError("Note canvas not found");
@@ -41,18 +41,21 @@ public class NoteAppear : MonoBehaviour
                     }
                     isVisible = true;
                 }
-                else
-                {
-                    // If the canvas and image are active, deactivate them
-                    noteCanvas.SetActive(false);
-                    // Deactivate the corresponding image
-                    if (noteImage != null)
-                    {
-                        noteImage.enabled = false;
-                    }
-                    isVisible = false;
-                }
+                
             }
         }
+    }
+    public void HideNote()
+    {
+        // Deactivate the canvas
+        noteCanvas.SetActive(false);
+
+        // Deactivate the corresponding image
+        if (noteImage != null)
+        {
+            noteImage.enabled = false;
+        }
+
+        isVisible = false;
     }
 }

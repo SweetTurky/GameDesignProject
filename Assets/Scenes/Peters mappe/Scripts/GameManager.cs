@@ -112,6 +112,17 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            // Deactivate all document canvas and images
+            foreach (NoteAppear document in noteAppearArray)
+            {
+                if (document.isVisible)
+                {
+                    document.HideNote();
+                }
+            }
+        }
         if (Input.GetKeyDown(KeyCode.E) && interact == true)
         {
             // Ensure there's a valid currentNote
@@ -195,39 +206,6 @@ public class GameManager : MonoBehaviour
             readyForPuzzle = true;
         }
     }      
-
-   /* public void CollectNote(int index)
-    {
-        // Get the GameObject of the note being interacted with
-        GameObject noteGameObject = noteAppearArray[index].noteGameObject; // Change the index to match the note you're interacting with
-
-        // Check if the note has already been collected
-        if (!collectedNotes.Contains(noteGameObject))
-        {
-            // Increment the total number of notes collected
-            notesCollected++;
-            UpdateNotesTextField();
-
-            // Add the note to the set of collected notes
-            collectedNotes.Add(noteGameObject);
-        }
-
-        // Hide or show the note canvas based on whether it's been collected before
-        if (!collectedNotes.Contains(noteGameObject))
-        {
-            // Show the note canvas
-            noteAppearArray[index].LookAtNote(); // Change the index to match the note you're interacting with
-        }
-        else
-        {
-            // Hide the note canvas if it's already been collected
-            noteAppearArray[index].HideNote(); // Change the index to match the note you're interacting with
-        }
-        if (notesCollected >= totalNotes)
-        {
-            WinGame();
-        }
-    } */
 
     void UpdateNotesTextField()
     {
