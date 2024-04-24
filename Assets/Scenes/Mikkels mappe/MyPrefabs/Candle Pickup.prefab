@@ -70,6 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectGrabbable: {fileID: 7576735660907578345, guid: 1714f26813571244a815b222f85028db,
     type: 3}
+  clip: {fileID: 8300000, guid: cece1761ab5a0fa41974d2fe9a714d83, type: 3}
 --- !u!95 &4889558752733727927
 Animator:
   serializedVersion: 5
