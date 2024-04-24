@@ -5,6 +5,7 @@ using UnityEngine;
 public class CandlePickup : MonoBehaviour
 {
     public ObjectGrabbable objectGrabbable;
+    public AudioClip clip;
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
@@ -12,6 +13,7 @@ public class CandlePickup : MonoBehaviour
         {
             if(objectGrabbable != null)
             {
+                AudioSource.PlayClipAtPoint(clip, gameObject.transform.position, 0.4f);
                 objectGrabbable.IncreaseLightTimer();
             }    
             
