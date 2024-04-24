@@ -5,8 +5,8 @@ using UnityEngine.Rendering.HighDefinition;
 public class LensDistortionController : MonoBehaviour
 {
     public Volume volume; // Reference to the Volume component attached to the camera
-    public float minIntensity = 0f; // Minimum intensity of lens distortion
-    public float maxIntensity = 1f; // Maximum intensity of lens distortion
+    public float minIntensity = -0.2f; // Minimum intensity of lens distortion
+    public float maxIntensity = 0.7f; // Maximum intensity of lens distortion
     private LensDistortion lensDistortion; // Reference to the LensDistortion component
 
     // Reference to the player's sanity manager (assuming you have one)
@@ -30,7 +30,7 @@ public class LensDistortionController : MonoBehaviour
 
     private void Update()
     {
-        if (sanityManager != null && sanityManager.playerSanity < 100)
+        if (sanityManager != null && sanityManager.playerSanity < 80)
         {
             // Calculate the intensity offset based on the player's sanity level
             float sanityPercentage = sanityManager.GetSanityPercentage();
@@ -44,30 +44,30 @@ public class LensDistortionController : MonoBehaviour
 
     private float GetIntensityOffset(float sanityPercentage)
     {
-        float inputRange = 25f; // Adjust this value to control the range for each sanity level
+        float inputRange = 2f; // Adjust this value to control the range for each sanity level
         float inputMin = ((100f - inputRange) / 100f);
         float inputMax = (1f - inputMin);
         float normalizedSanity = Mathf.InverseLerp(inputMin, inputMax, (sanityPercentage * 1f));
 
          if(sanityPercentage < 50)
         {
-            normalizedSanity = normalizedSanity * 0.5f;
+            normalizedSanity = normalizedSanity * 0.4f;
         } 
         else if(sanityPercentage < 40)
         {
-            normalizedSanity = normalizedSanity * 0.45f;
+            normalizedSanity = normalizedSanity * 0.35f;
         } 
         else if(sanityPercentage < 30)
         {
-            normalizedSanity = normalizedSanity * 0.4f;
+            normalizedSanity = normalizedSanity * 0.3f;
         } 
         else if(sanityPercentage < 20)
         {
-            normalizedSanity = normalizedSanity * 0.35f;
+            normalizedSanity = normalizedSanity * 0.25f;
         } 
         else if(sanityPercentage < 10)
         {
-            normalizedSanity = normalizedSanity * 0.3f;
+            normalizedSanity = normalizedSanity * 0.2f;
         } 
 
         float targetMin = 0f;
@@ -96,8 +96,8 @@ public class LensDistortionController : MonoBehaviour
         }
 
         // Interpolate between the target intensity range based on the sine wave
-        float frequency = 0.2f; // Adjust the frequency of the oscillation
-        float phase = Mathf.Sin(2f * Mathf.PI * frequency * Time.time + timeOffset);
+        float frequency = 0.25f; // Adjust the frequency of the oscillation
+        float phase = Mathf.Sin(4f * Mathf.PI * frequency * Time.time + timeOffset);
         float intensityOffset = Mathf.Lerp(targetMin, targetMax, (phase + 1f) / 2f);
 
         return Mathf.Lerp(normalizedSanity, intensityOffset, Mathf.Abs(phase)); // Use the sine wave to interpolate between normalized sanity and intensity offset

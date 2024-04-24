@@ -1647,7 +1647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volume: {fileID: 1056462517}
-  minIntensity: 0
+  minIntensity: -0.2
   maxIntensity: 1
   sanityManager: {fileID: 1353685742}
 --- !u!114 &1097551069 stripped
@@ -1952,7 +1952,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSanity: 100
   secondsSinceLightSource: 0
-  sanityDecayRate: 1
+  sanityDecayRate: 4
   sanityIncreaseRate: 0.01
   raycastDistance: 10
   raycastLayerMask:

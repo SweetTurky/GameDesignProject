@@ -125,42 +125,51 @@ public class SanityManager : MonoBehaviour
         {
             Debug.Log("Player Sanity between 100 - 80!");
             lastLoggedInterval = 100;
+            UpdateIntensityOffset();
         }
         else if (playerSanity > 100f && lastLoggedInterval <= 100)
         {
             lastLoggedInterval = 101; // Reset when sanity goes above 100
+            UpdateIntensityOffset();
         }
         else if (playerSanity <= 80f && lastLoggedInterval > 80)
         {
             Debug.Log("Player Sanity between 80 - 60!");
             lastLoggedInterval = 80;
+            UpdateIntensityOffset();
         }
         else if (playerSanity > 80f && lastLoggedInterval <= 80)
         {
             lastLoggedInterval = 81; // Reset when sanity goes above 80
+            UpdateIntensityOffset();
         }
         else if (playerSanity <= 60f && lastLoggedInterval > 60)
         {
             Debug.Log("Player Sanity between 60 - 40!");
             lastLoggedInterval = 60;
+            UpdateIntensityOffset();
         }
         else if (playerSanity > 60f && lastLoggedInterval <= 60)
         {
             lastLoggedInterval = 61; // Reset when sanity goes above 60
+            UpdateIntensityOffset();
         }
         else if (playerSanity <= 40f && lastLoggedInterval > 40)
         {
             Debug.Log("Player Sanity between 40 - 20!");
             lastLoggedInterval = 40;
+            UpdateIntensityOffset();
         }
         else if (playerSanity > 40f && lastLoggedInterval <= 40)
         {
             lastLoggedInterval = 41; // Reset when sanity goes above 40
+            UpdateIntensityOffset();
         }
         else if (playerSanity < 20f && lastLoggedInterval > 0)
         {
             Debug.Log("Player Sanity between 20 - 0!");
             lastLoggedInterval = 0;
+            UpdateIntensityOffset();
         }
 
         // Update intensity offsets if transition is in progress
