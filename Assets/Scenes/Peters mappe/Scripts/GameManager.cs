@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public GameObject menuCanvas;
     public FadeToBlack fadeToBlack;
     public GameObject firstPersonController;
-    private HashSet<GameObject> collectedNotes = new HashSet<GameObject>(); 
+    private HashSet<GameObject> collectedNotes = new HashSet<GameObject>();
     public NoteAppear[] noteAppearArray;
     public bool Document1Activated = false;
     public bool Document2Activated = false;
@@ -40,10 +40,10 @@ public class GameManager : MonoBehaviour
     public float pickUpDistance = 2f; // Distance for raycasting to pick up objects
     public LayerMask pickUpLayerMask; // Layer mask for objects that can be picked up
     public Transform playerCameraTransform; // Camera transform to use for raycasting
-    
+
     private void Awake()
     {
-        
+
         // Ensure only one instance of the GameManager exists
         if (instance == null)
         {
@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
             currentNote = collision.gameObject;
 
         }
-        else if (collision.transform.CompareTag("Lantern"))
+        else if (collision.transform.CompareTag("HandHeldLightSource"))
         {
             lanternInstruction.SetActive(true);
             interact = true;
@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
             instruction.SetActive(false);
             lanternInstruction.SetActive(false);
         }
-    
+
     }
 
     void OnTriggerExit(Collider collision)
@@ -186,10 +186,11 @@ public class GameManager : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out hit, pickUpDistance, pickUpLayerMask))
             {
-                if (hit.transform.CompareTag("Lantern"))
+                if (hit.transform.CompareTag("HandHeldLightSource"))
                 {
+                    lanternHeld = true;
                     interact = true; // Enable interaction
-                    lanternInstruction.SetActive(true); // Show instruction
+                    lanternInstruction.SetActive(false); // Show instruction
                     return; // Exit the method to avoid further checks
                 }
             }
@@ -205,7 +206,7 @@ public class GameManager : MonoBehaviour
             WinGame();
             readyForPuzzle = true;
         }
-    }      
+    }
 
     void UpdateNotesTextField()
     {
@@ -228,7 +229,7 @@ public class GameManager : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             FadeManager.instance.FadeToBlack();
-            StartCoroutine(TurnOffAudioListener());
+            StartCoroutine(TurnDownAudioListener());
         }
     }
 
@@ -259,18 +260,21 @@ public class GameManager : MonoBehaviour
         // Quit the game (works in standalone builds)
         Application.Quit();
     }
-    IEnumerator TurnOffAudioListener()
-    {       
-        yield return new WaitForSeconds(4.0f);
-            if (audioListener != null)
-            {
-                audioListener.enabled = false;
-            }
-            else
-            {
-                Debug.LogWarning("AudioListener component not found.");
-            }
-            
-        
+    IEnumerator TurnDownAudioListener()
+    {
+        float duration = 4.0f;
+        float elapsedTime = 0f;
+        float startVolume = AudioListener.volume;
+
+        while (elapsedTime < duration)
+        {
+            float t = elapsedTime / duration;
+            AudioListener.volume = Mathf.Lerp(startVolume, 0f, t);
+            yield return null;
+            elapsedTime += Time.deltaTime;
+        }
+
+        // Ensure volume is set to 0 when the coroutine ends
+        AudioListener.volume = 0f;
     }
 }

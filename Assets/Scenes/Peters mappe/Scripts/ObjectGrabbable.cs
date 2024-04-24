@@ -46,12 +46,14 @@ public class ObjectGrabbable : MonoBehaviour
     {
         this.objectGrabPointTransform = null;
         objectRigidbody.useGravity = true;
+        GameManager.instance.lanternHeld = false;
 
         // Show instruction when the lantern is dropped and player is looking at it
+        //måske her det går galt
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, GameManager.instance.pickUpDistance, GameManager.instance.pickUpLayerMask))
         {
-            if (hit.transform.CompareTag("Lantern"))
+            if (hit.transform.CompareTag("HandHeldLightSource"))
             {
                 GameManager.instance.lanternInstruction.SetActive(true);
             }

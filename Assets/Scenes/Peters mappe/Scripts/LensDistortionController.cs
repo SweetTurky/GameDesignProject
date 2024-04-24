@@ -96,8 +96,8 @@ public class LensDistortionController : MonoBehaviour
         }
 
         // Interpolate between the target intensity range based on the sine wave
-        float frequency = 0.25f; // Adjust the frequency of the oscillation
-        float phase = Mathf.Sin(4f * Mathf.PI * frequency * Time.time + timeOffset);
+        float frequency = 0.5f; // Adjust the frequency of the oscillation
+        float phase = Mathf.Sin(2f * Mathf.PI * frequency * Time.time + timeOffset);
         float intensityOffset = Mathf.Lerp(targetMin, targetMax, (phase + 1f) / 2f);
 
         return Mathf.Lerp(normalizedSanity, intensityOffset, Mathf.Abs(phase)); // Use the sine wave to interpolate between normalized sanity and intensity offset

@@ -21,7 +21,7 @@ public class EnemyAI : MonoBehaviour
     public Transform currentDest;
     public Vector3 teleportPoint1;
     public Vector3 teleportPoint2;
-    Vector3 destLimit = new Vector3(-1, -1, 0);
+    //Vector3 destLimit = new Vector3(-1, -1, 0);
     public Vector3 dest;
     int randNum;
     public Vector3 rayCastOffset;
@@ -32,14 +32,14 @@ public class EnemyAI : MonoBehaviour
     public AudioSource audioSourceSpotted;
     public float minIntervalBetweenClips;
     public float maxIntervalBetweenClips;
-    
+
 
     void Start()
     {
         walking = true;
         randNum = Random.Range(0, destinations.Count);
         currentDest = destinations[randNum];
-        dest = dest - destLimit;
+        //dest = dest - destLimit;
     }
 
     public void TeleportToPoint1()
@@ -102,7 +102,7 @@ public class EnemyAI : MonoBehaviour
             Vector3 directionToPlayer = (player.position - transform.position).normalized;
             // Calculate the destination point slightly in front of the player
             Vector3 destinationPoint = player.position - directionToPlayer * catchDistance;
-            dest = player.position - destLimit;
+            dest = player.position/* - destLimit*/;
             ai.destination = dest;
             ai.speed = chaseSpeed;
             // Smoothly transition to chase animation
@@ -110,14 +110,14 @@ public class EnemyAI : MonoBehaviour
             float distance = Vector3.Distance(player.position, ai.transform.position);
             if (distance <= catchDistance)
             {
+                transform.LookAt(player.position);
+                ai.destination = transform.position;
                 //ai.isStopped = true;
                 //walkSpeed = 0;
                 //chaseSpeed = 0;
                 //player.gameObject.SetActive(false);
-
                 // Set jumpscare animation
                 aiAnim.Play("Cast03"); // Assuming "Death" animation is for jumpscare
-                transform.LookAt(player.position);
                 //StartCoroutine(deathRoutine());
                 chasing = false;
                 StartCoroutine("LoseGameAfterTimer");
@@ -180,14 +180,36 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+
     IEnumerator stayIdle()
+    {
+        idleTime = Random.Range(minIdleTime, maxIdleTime);
+        yield return new WaitForSeconds(idleTime);
+
+        // Keep track of the previously chosen destination
+        int previousDestIndex = randNum;
+
+        // Find a new destination different from the previous one
+        do
+        {
+            randNum = Random.Range(0, destinations.Count);
+        } while (randNum == previousDestIndex);
+
+        // Set the new destination
+        currentDest = destinations[randNum];
+
+        // Set walking to true after choosing the destination
+        walking = true;
+    }
+
+    /*IEnumerator stayIdle()
     {
         idleTime = Random.Range(minIdleTime, maxIdleTime);
         yield return new WaitForSeconds(idleTime);
         walking = true;
         randNum = Random.Range(0, destinations.Count);
         currentDest = destinations[randNum];
-    }
+    }*/
 
     IEnumerator chaseRoutine()
     {
