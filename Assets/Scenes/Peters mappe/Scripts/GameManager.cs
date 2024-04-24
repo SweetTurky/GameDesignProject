@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance; // Singleton instance
 
     public int notesCollected = 0;
-    public int totalNotes = 5; // Set to the total number of notes in your game
-
+    private int totalNotes = 7; // Set to the total number of notes in your game
+    public bool readyForPuzzle = false;
     public bool isGameWon = false;
     public bool isGameLost = false;
     public bool interact = false;
@@ -23,18 +23,24 @@ public class GameManager : MonoBehaviour
     public GameObject menuCanvas;
     public FadeToBlack fadeToBlack;
     public GameObject firstPersonController;
-    public NoteAppear noteAppear;
-    private HashSet<GameObject> collectedNotes = new HashSet<GameObject>();
+    private HashSet<GameObject> collectedNotes = new HashSet<GameObject>(); 
+    public NoteAppear[] noteAppearArray;
+    public bool Document1Activated = false;
+    public bool Document2Activated = false;
+    public bool Document3Activated = false;
+    public bool Document4Activated = false;
+    public bool Document5Activated = false;
+    public bool Document6Activated = false;
+    public bool Document7Activated = false;
     public AudioListener audioListener;
     private ObjectGrabbable objectGrabbable;
     public TMP_Text notesTextField;
+    public GameObject currentNote = null;
 
     public float pickUpDistance = 2f; // Distance for raycasting to pick up objects
     public LayerMask pickUpLayerMask; // Layer mask for objects that can be picked up
     public Transform playerCameraTransform; // Camera transform to use for raycasting
-
-
-
+    
     private void Awake()
     {
         
@@ -55,6 +61,15 @@ public class GameManager : MonoBehaviour
         lanternInstruction.SetActive(false);
         enableInteraction.SetActive(true);
         UpdateNotesTextField();
+
+        // Find all GameObjects with the "Note" tag
+        GameObject[] noteObjects = GameObject.FindGameObjectsWithTag("Note");
+
+        // Loop through each note GameObject and add its NoteAppear script to the list
+        foreach (GameObject noteObject in noteObjects)
+        {
+            NoteAppear noteAppear = noteObject.GetComponent<NoteAppear>();
+        }
     }
 
     void OnTriggerEnter(Collider collision)
@@ -64,6 +79,8 @@ public class GameManager : MonoBehaviour
             instruction.SetActive(true);
             interact = true;
             noteInteraction = true;
+            // Store the collided note for interaction
+            currentNote = collision.gameObject;
 
         }
         else if (collision.transform.CompareTag("Lantern"))
@@ -90,47 +107,68 @@ public class GameManager : MonoBehaviour
         lanternInstruction.SetActive(false);
         interact = false;
         noteInteraction = false;
+        currentNote = null;
     }
 
     void Update()
     {
-            if (Input.GetKeyDown(KeyCode.E) && interact == true)
-    {
-        // If the canvas is already visible, hide it
-        if (noteAppear.isVisible)
+        if (Input.GetKeyDown(KeyCode.E) && interact == true)
         {
-            noteAppear.LookAtNote();
-            interact = false; // Ensure interaction is disabled after putting down the note
-            return;
-        }
-
-        // If the player is in range to interact with a note and the note is not already collected
-        if (noteInteraction == true && !noteAppear.isVisible)
-        {
-            instruction.SetActive(false);
-            enableInteraction.SetActive(false);
-            interact = false;
-
-            // Check if the collided object is a note and hasn't been collected yet
-            Collider[] colliders = Physics.OverlapSphere(transform.position, 1.5f);
-            foreach (Collider collider in colliders)
+            // Ensure there's a valid currentNote
+            if (currentNote != null)
             {
-                if (collider.CompareTag("Note") && !collectedNotes.Contains(collider.gameObject))
+                NoteAppear noteAppear = currentNote.GetComponent<NoteAppear>();
+                if (noteAppear != null)
                 {
-                    CollectNote();
                     noteAppear.LookAtNote();
-                    collectedNotes.Add(collider.gameObject);
-                    interact = true;
-                    break; // Exit loop after collecting one note
                 }
+                // Check the name of the collided note
+                string noteName = currentNote.name;
+
+                // Check which document is being activated
+                if (noteName == "Document1" && !Document1Activated)
+                {
+                    Document1Activated = true;
+                    notesCollected++;
+                }
+                else if (noteName == "Document2" && !Document2Activated)
+                {
+                    Document2Activated = true;
+                    notesCollected++;
+                }
+                else if (noteName == "Document3" && !Document3Activated)
+                {
+                    Document3Activated = true;
+                    notesCollected++;
+                }
+                else if (noteName == "Document4" && !Document4Activated)
+                {
+                    Document4Activated = true;
+                    notesCollected++;
+                }
+                else if (noteName == "Document5" && !Document5Activated)
+                {
+                    Document5Activated = true;
+                    notesCollected++;
+                }
+                else if (noteName == "Document6" && !Document6Activated)
+                {
+                    Document6Activated = true;
+                    notesCollected++;
+                }
+                else if (noteName == "Document7" && !Document7Activated)
+                {
+                    Document7Activated = true;
+                    notesCollected++;
+                }
+
+                // Update the UI text field
+                UpdateNotesTextField();
+
+                // Remove the interaction after activation
+                interact = false;
             }
         }
-    }
-
-        /*else if (noteAppear.isVisible && Input.GetKeyDown(KeyCode.E))
-            {
-                noteAppear.LookAtNote();
-            }*/
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && objectGrabbable == null)
         {
@@ -151,36 +189,45 @@ public class GameManager : MonoBehaviour
         {
             lanternInstruction.SetActive(false);
         }
+        if (notesCollected == totalNotes && readyForPuzzle == false)
+        {
+            WinGame();
+            readyForPuzzle = true;
+        }
     }      
 
-
-    public void CollectNote()
+   /* public void CollectNote(int index)
     {
-        if (noteAppear.isVisible)
+        // Get the GameObject of the note being interacted with
+        GameObject noteGameObject = noteAppearArray[index].noteGameObject; // Change the index to match the note you're interacting with
+
+        // Check if the note has already been collected
+        if (!collectedNotes.Contains(noteGameObject))
         {
-            // Check if the note has already been collected
-            if (!collectedNotes.Contains(noteAppear.noteGameObject))
-            {
-                // Increment the total number of notes collected
-                notesCollected++;
-                Debug.Log("Note collected! Total notes: " + notesCollected);
-                UpdateNotesTextField();
+            // Increment the total number of notes collected
+            notesCollected++;
+            UpdateNotesTextField();
 
-                // Add the note to the set of collected notes
-                collectedNotes.Add(noteAppear.noteGameObject);
-
-                // Check if all notes have been collected
-                if (notesCollected >= totalNotes)
-                {
-                    WinGame();
-                }
-            }
-
-            // Hide the note canvas
-            noteAppear.HideNote();
+            // Add the note to the set of collected notes
+            collectedNotes.Add(noteGameObject);
         }
-    }
 
+        // Hide or show the note canvas based on whether it's been collected before
+        if (!collectedNotes.Contains(noteGameObject))
+        {
+            // Show the note canvas
+            noteAppearArray[index].LookAtNote(); // Change the index to match the note you're interacting with
+        }
+        else
+        {
+            // Hide the note canvas if it's already been collected
+            noteAppearArray[index].HideNote(); // Change the index to match the note you're interacting with
+        }
+        if (notesCollected >= totalNotes)
+        {
+            WinGame();
+        }
+    } */
 
     void UpdateNotesTextField()
     {

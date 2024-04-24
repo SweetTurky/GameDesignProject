@@ -5,40 +5,54 @@ using UnityEngine.UI;
 
 public class NoteAppear : MonoBehaviour
 {
-    [SerializeField]
-    public Image noteImage;
-    public GameObject noteGameObject;
-    public bool isVisible = false;
+    [SerializeField] public Image noteImage;
+    [SerializeField] public GameObject noteGameObject;
+    [SerializeField] private GameObject noteCanvas; // Reference to the canvas GameObject
+
+    private bool isVisible = false;
 
     void Start()
     {
-        // Ensure the document is initially hidden
-        noteImage.enabled = false;
+        // Ensure the canvas is initially disabled
+        noteCanvas.SetActive(false);
+
+        if (noteCanvas == null)
+        {
+            Debug.LogError("Note canvas not found");
+        }
     }
 
     public void LookAtNote()
     {
-        // Toggle visibility of the note image
-        if (!isVisible)
+        // Check if the player is looking at the note
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))
         {
-            // Note is not visible, make it visible
-            noteImage.enabled = true;
-            isVisible = true; // Update the isVisible variable
-            noteGameObject.SetActive(false);
-        }
-        else
-        {
-            // Note is visible, make it invisible
-            HideNote();
+            if (hit.collider.gameObject == gameObject)
+            {
+                // If the canvas and image are inactive, activate them
+                if (!isVisible)
+                {
+                    noteCanvas.SetActive(true);
+                    // Activate the corresponding image
+                    if (noteImage != null)
+                    {
+                        noteImage.enabled = true;
+                    }
+                    isVisible = true;
+                }
+                else
+                {
+                    // If the canvas and image are active, deactivate them
+                    noteCanvas.SetActive(false);
+                    // Deactivate the corresponding image
+                    if (noteImage != null)
+                    {
+                        noteImage.enabled = false;
+                    }
+                    isVisible = false;
+                }
+            }
         }
     }
-
-    public void HideNote()
-        {
-            // Hide the note image and make it invisible
-            noteImage.enabled = false;
-            isVisible = false; // Update the isVisible variable
-            noteGameObject.SetActive(true);
-        }
-
 }
