@@ -10,7 +10,6 @@ public class FadeToBlack : MonoBehaviour
     private Image canvasImage;
     private Color originalColor;
     private Color targetColor = Color.black;
-    private float currentFadeTime = 4.0f;
 
     void Start()
     {
