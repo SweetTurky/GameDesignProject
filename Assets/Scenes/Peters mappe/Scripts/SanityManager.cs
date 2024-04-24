@@ -100,7 +100,7 @@ public class SanityManager : MonoBehaviour
         candleFlame.SetActive(candleTimeLeft > 0);
         // Perform a raycast from the player towards the light source
         RaycastHit hit;
-        bool raycastHitSomething = Physics.Raycast(transform.position, (transform.position - transform.forward), out hit, raycastDistance, raycastLayerMask);
+        bool raycastHitSomething = Physics.Raycast(transform.position, transform.position - transform.forward, out hit, raycastDistance, raycastLayerMask);
         bool shouldGainSanity = nearLightSource && (!holdingHandheldLight || (holdingHandheldLight && candleTimeLeft > 0 && !raycastHitSomething));
 
         if (shouldGainSanity)

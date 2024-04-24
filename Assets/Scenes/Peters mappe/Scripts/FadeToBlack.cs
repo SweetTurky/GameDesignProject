@@ -8,13 +8,8 @@ public class FadeToBlack : MonoBehaviour
     public float fadeDuration = 2.0f; // Duration of the fade effect in seconds
 
     public Image canvasImage;
-    private Color originalColor;
     private Color targetColor = Color.black;
 
-    void Start()
-    {
-        originalColor = canvasImage.color;
-    }
 
     public void StartFade()
     {

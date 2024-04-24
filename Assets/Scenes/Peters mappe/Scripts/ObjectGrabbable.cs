@@ -15,7 +15,8 @@ public class ObjectGrabbable : MonoBehaviour
     bool lightRestored = false; // Flag to track if light has been restored
     float elapsedTime = 0f;
     private bool candleTimeDecreasedThisFrame = false;
-    private bool firstCandlePickup = true;
+    //private bool firstCandlePickup = true;
+    public float lerpSpeed = 30f;
 
 
     private void Awake()
@@ -23,7 +24,7 @@ public class ObjectGrabbable : MonoBehaviour
         objectRigidbody = GetComponent<Rigidbody>();
         lanternLight = GetComponentInChildren<Light>();
         initialIntensity = lanternLight.intensity;
-        lightTimer = sanityManager.candleTimeLeft; 
+        lightTimer = sanityManager.candleTimeLeft;
     }
 
     public void Grab(Transform objectGrabPointTransform)
@@ -72,11 +73,11 @@ public class ObjectGrabbable : MonoBehaviour
     }
 
 
-   public IEnumerator FadeLightIntensity()
+    public IEnumerator FadeLightIntensity()
     {
         float fadeDuration = sanityManager.candleTimeLeft;
         elapsedTime = 0f;
-        
+
         while (elapsedTime < fadeDuration)
         {
             // Calculate the progress based on the elapsed time
@@ -98,7 +99,6 @@ public class ObjectGrabbable : MonoBehaviour
 
             if (!candleTimeDecreasedThisFrame)
             {
-                DecreaseCandleTime();
                 candleTimeDecreasedThisFrame = true; // Set the flag to true to indicate that the decrease has been applied
             }
             else
@@ -124,31 +124,24 @@ public class ObjectGrabbable : MonoBehaviour
     }
     private void RestoreLight()
     {
-    // Restore the light intensity
-    lanternLight.intensity = initialIntensity;
-    lanternLight.enabled = true;
-    // Reset the flag when the light is restored
-    candleTimeDecreasedThisFrame = false;
+        // Restore the light intensity
+        lanternLight.intensity = initialIntensity;
+        lanternLight.enabled = true;
+        // Reset the flag when the light is restored
+        candleTimeDecreasedThisFrame = false;
     }
-    private void DecreaseCandleTime()
-    {
-        //sanityManager.candleTimeLeft -= Time.deltaTime;
-    }
+
     void Update()
     {
-        	if (firstPickup == false)
+        if (firstPickup == false)
         {
             sanityManager.candleTimeLeft -= Time.deltaTime;
         }
-    }
-    private void FixedUpdate()
-    {
+
         if (objectGrabPointTransform != null)
         {
-            float lerpSpeed = 10f;
             Vector3 newPosition = Vector3.Lerp(transform.position, objectGrabPointTransform.position, Time.deltaTime * lerpSpeed);
             objectRigidbody.MovePosition(objectGrabPointTransform.position);
         }
-        
     }
 }

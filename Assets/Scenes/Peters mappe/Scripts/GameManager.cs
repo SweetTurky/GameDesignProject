@@ -227,7 +227,7 @@ public class GameManager : MonoBehaviour
             menuCanvas.SetActive(true);
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
-            fadeToBlack.StartFade();
+            FadeManager.instance.FadeToBlack();
             StartCoroutine(TurnOffAudioListener());
         }
     }
