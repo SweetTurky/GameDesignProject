@@ -134,7 +134,6 @@ public class EnemyAI : MonoBehaviour
             aiAnim.SetFloat("locomotion", Mathf.Lerp(aiAnim.GetFloat("locomotion"), 1f, Time.deltaTime * 1f));
             if (ai.remainingDistance <= ai.stoppingDistance)
             {
-                //ai.speed = 0;
                 StopCoroutine("stayIdle");
                 StartCoroutine("stayIdle");
                 aiAnim.Play("IdleBreak"); // Assuming "Idle" animation is for idle
@@ -180,36 +179,14 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-
     IEnumerator stayIdle()
-    {
-        idleTime = Random.Range(minIdleTime, maxIdleTime);
-        yield return new WaitForSeconds(idleTime);
-
-        // Keep track of the previously chosen destination
-        int previousDestIndex = randNum;
-
-        // Find a new destination different from the previous one
-        do
-        {
-            randNum = Random.Range(0, destinations.Count);
-        } while (randNum == previousDestIndex);
-
-        // Set the new destination
-        currentDest = destinations[randNum];
-
-        // Set walking to true after choosing the destination
-        walking = true;
-    }
-
-    /*IEnumerator stayIdle()
     {
         idleTime = Random.Range(minIdleTime, maxIdleTime);
         yield return new WaitForSeconds(idleTime);
         walking = true;
         randNum = Random.Range(0, destinations.Count);
         currentDest = destinations[randNum];
-    }*/
+    }
 
     IEnumerator chaseRoutine()
     {
@@ -236,11 +213,4 @@ public class EnemyAI : MonoBehaviour
         currentDest = destinations[randNum];
         walking = true;
     }
-
-
-    /*IEnumerator deathRoutine()
-    {
-        yield return new WaitForSeconds(jumpscareTime);
-        SceneManager.LoadScene(deathScene);
-    }*/
 }
