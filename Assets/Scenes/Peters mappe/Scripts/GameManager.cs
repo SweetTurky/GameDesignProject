@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         instruction.SetActive(false);
         lanternInstruction.SetActive(false);
         enableInteraction.SetActive(true);
