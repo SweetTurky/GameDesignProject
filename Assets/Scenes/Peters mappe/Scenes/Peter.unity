@@ -931,7 +931,6 @@ MonoBehaviour:
   deathScene: 
   showSightDistanceGizmo: 1
   gameManager: {fileID: 0}
-  firstPersonController: {fileID: 1353685736}
   audioSourceJumpscare: {fileID: 0}
   audioSourceSpotted: {fileID: 0}
   minIntervalBetweenClips: 0
@@ -1227,6 +1226,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1140720269}
     m_Modifications:
+    - target: {fileID: 1622946103789400811, guid: 2d1359e2d67a4c74e9e748e1bfee3c7d,
+        type: 3}
+      propertyPath: clip
+      value: 
+      objectReference: {fileID: 8300000, guid: cece1761ab5a0fa41974d2fe9a714d83, type: 3}
     - target: {fileID: 1622946103789400811, guid: 2d1359e2d67a4c74e9e748e1bfee3c7d,
         type: 3}
       propertyPath: objectGrabbable
@@ -1952,7 +1956,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSanity: 100
   secondsSinceLightSource: 0
-  sanityDecayRate: 4
+  sanityDecayRate: 1
   sanityIncreaseRate: 0.01
   raycastDistance: 10
   raycastLayerMask:
@@ -2089,6 +2093,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1140720269}
     m_Modifications:
+    - target: {fileID: 1622946103789400811, guid: 2d1359e2d67a4c74e9e748e1bfee3c7d,
+        type: 3}
+      propertyPath: clip
+      value: 
+      objectReference: {fileID: 8300000, guid: cece1761ab5a0fa41974d2fe9a714d83, type: 3}
     - target: {fileID: 1622946103789400811, guid: 2d1359e2d67a4c74e9e748e1bfee3c7d,
         type: 3}
       propertyPath: objectGrabbable
@@ -2833,6 +2842,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1140720269}
     m_Modifications:
+    - target: {fileID: 1622946103789400811, guid: 2d1359e2d67a4c74e9e748e1bfee3c7d,
+        type: 3}
+      propertyPath: clip
+      value: 
+      objectReference: {fileID: 8300000, guid: cece1761ab5a0fa41974d2fe9a714d83, type: 3}
     - target: {fileID: 1622946103789400811, guid: 2d1359e2d67a4c74e9e748e1bfee3c7d,
         type: 3}
       propertyPath: objectGrabbable
@@ -3954,6 +3968,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Latern2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5397611852388518259, guid: 1714f26813571244a815b222f85028db,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7576735660907578345, guid: 1714f26813571244a815b222f85028db,
         type: 3}
