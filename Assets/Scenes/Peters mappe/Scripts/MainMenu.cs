@@ -23,5 +23,5 @@ public class MainMenu : MonoBehaviour
         FadeManager.instance.FadeToBlack();
         // Directly trigger the scene switch when the fade completes
         FadeManager.instance.OnFadeComplete += () => SceneManager.LoadScene("MainMenu");
-    }
+    }  
 }

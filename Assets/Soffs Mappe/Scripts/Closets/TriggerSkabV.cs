@@ -22,7 +22,7 @@ public class TriggerSkabV : MonoBehaviour
         }
 
         // Check if the left mouse button is being held down and cooldown is over
-        if (Input.GetMouseButtonDown(0) && cooldownTimer <= 0)
+        if (Input.GetKeyDown(KeyCode.E) && cooldownTimer <= 0)
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

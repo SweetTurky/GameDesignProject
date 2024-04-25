@@ -55,7 +55,7 @@ public class FadeManager : MonoBehaviour
         // Fade in
         if (fadeIn)
         {
-            while (fadeImage.color.a < 0.99f)
+            while (fadeImage.color.a < 1f)
             {
                 float alpha = fadeImage.color.a + (fadeSpeed * Time.deltaTime);
                 fadeImage.color = new Color(0, 0, 0, Mathf.Clamp01(alpha));
