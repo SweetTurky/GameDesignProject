@@ -15,7 +15,7 @@ public class PuzzleInteraction : MonoBehaviour
         RaycastHit hit;
 
         // Cast a ray from the center of the screen (crosshair position)
-        if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, Mathf.Infinity, buttonLayerMask))
+        if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, 20f, buttonLayerMask))
         {
             // Check if the object hit is a puzzle button
             PuzzleButton puzzleButton = hit.collider.GetComponent<PuzzleButton>();
@@ -36,7 +36,7 @@ public class PuzzleInteraction : MonoBehaviour
         }
 
         // Handle click event
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             if (lastHoveredObject != null)
             {

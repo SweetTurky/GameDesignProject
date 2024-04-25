@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 
 public class WordPuzzleManager : MonoBehaviour
@@ -29,8 +30,7 @@ public class WordPuzzleManager : MonoBehaviour
         if (CheckSolution())
         {
             Debug.Log("Puzzle Solved!");
-            // Call a function to handle puzzle solved event
-            PuzzleSolved();
+            StartCoroutine("PuzzleSolved");
         }
     }
 
@@ -62,7 +62,7 @@ public class WordPuzzleManager : MonoBehaviour
         return true;
     }
 
-    private void PuzzleSolved()
+    public IEnumerator PuzzleSolved()
     {
         // Implement actions to take when the puzzle is solved
         AudioClip clip = correctSolutionClip;
@@ -70,6 +70,11 @@ public class WordPuzzleManager : MonoBehaviour
         Debug.Log("Congratulations! Puzzle solved!");
         animator.Play("Death");
         animator2.Play("Death");
+        yield return new WaitForSeconds(4f);
+        FadeManager.instance.FadeToBlack();
+        GameManager.instance.TurnDownAudioListener();
+        yield return new WaitForSeconds(3f);
+        GameManager.instance.WinGame();
     }
 
     private void ResetPuzzleButtons()

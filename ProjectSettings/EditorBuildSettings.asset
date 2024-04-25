@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Mikkels mappe/Scene_combine1.unity
     guid: 345b04f6ffe6f034091c44b913b5d9b9
+  - enabled: 1
+    path: Assets/Scenes/Mikkels mappe/OutroVideo.unity
+    guid: 98d4fc37119ab974298b11496491128a
   m_configObjects: {}

@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public GameObject instruction;
     public GameObject enableInteraction;
     public GameObject menuCanvas;
+    public GameObject wordPuzzle;
     public FadeToBlack fadeToBlack;
     public GameObject firstPersonController;
     private HashSet<GameObject> collectedNotes = new HashSet<GameObject>();
@@ -203,7 +204,7 @@ public class GameManager : MonoBehaviour
         }
         if (notesCollected == totalNotes && readyForPuzzle == false)
         {
-            WinGame();
+            wordPuzzle.SetActive(true);
             readyForPuzzle = true;
         }
     }
@@ -235,12 +236,9 @@ public class GameManager : MonoBehaviour
 
     public void WinGame()
     {
-        isGameWon = true;
-        if (isGameWon == true)
-        {
-            Debug.Log("Congratulations! You win!");
-            // Add any other win conditions or actions here
-        }
+        Debug.Log("Congratulations! You win!");
+        // Add any other win conditions or actions here
+        SceneManager.LoadScene("OutroVideo");
     }
 
     public void LoadNextLevel()
@@ -260,7 +258,7 @@ public class GameManager : MonoBehaviour
         // Quit the game (works in standalone builds)
         Application.Quit();
     }
-    IEnumerator TurnDownAudioListener()
+    public IEnumerator TurnDownAudioListener()
     {
         float duration = 4.0f;
         float elapsedTime = 0f;
