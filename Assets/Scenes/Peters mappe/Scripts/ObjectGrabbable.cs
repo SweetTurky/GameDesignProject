@@ -28,6 +28,7 @@ public class ObjectGrabbable : MonoBehaviour
         this.objectGrabPointTransform = objectGrabPointTransform;
         objectRigidbody.useGravity = false;
         GameManager.instance.lanternInstruction.SetActive(false); // Disable instruction when the lantern is grabbed
+        GameManager.instance.lanternHeld = true;
 
         if (firstPickup)
         {
@@ -44,14 +45,14 @@ public class ObjectGrabbable : MonoBehaviour
         GameManager.instance.lanternHeld = false;
 
         // Show instruction when the lantern is dropped and player is looking at it
-        RaycastHit hit;
+        /*RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, GameManager.instance.pickUpDistance, GameManager.instance.pickUpLayerMask))
         {
             if (hit.transform.CompareTag("HandHeldLightSource"))
             {
                 GameManager.instance.lanternInstruction.SetActive(true);
             }
-        }
+        }*/
     }
 
     public void IncreaseLightTimer()

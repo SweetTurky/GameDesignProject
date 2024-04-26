@@ -50,8 +50,12 @@ public class SanityManager : MonoBehaviour
    {
     if (other.CompareTag("LightSource"))
     {
-        nearLightSource = false;
-        Debug.Log("Exiting Light Source");
+        if (!holdingHandheldLight)
+        {
+            nearLightSource = false;
+            Debug.Log("Exiting Light Source");
+        }
+
     }
     if (other.CompareTag("HandHeldLightSource"))
     {
