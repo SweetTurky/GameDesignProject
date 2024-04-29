@@ -26,12 +26,12 @@ public class playerPickupDrop : MonoBehaviour
                     }
                 }
             }
-            else
+            /*else
             {
                 // Currently carrying something, drop.
                 objectGrabbable.Drop();
                 objectGrabbable = null;
-            } 
+            } */
         }
     }
 }

@@ -38,7 +38,7 @@ public class ObjectGrabbable : MonoBehaviour
         }
     }
 
-    public void Drop()
+    /*public void Drop()
     {
         this.objectGrabPointTransform = null;
         objectRigidbody.useGravity = true;
@@ -53,7 +53,7 @@ public class ObjectGrabbable : MonoBehaviour
                 GameManager.instance.lanternInstruction.SetActive(true);
             }
         }*/
-    }
+    //}
 
     public void IncreaseLightTimer()
     {
