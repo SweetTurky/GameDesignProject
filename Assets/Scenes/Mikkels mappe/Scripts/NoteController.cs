@@ -30,13 +30,16 @@ public class NoteController : MonoBehaviour
         openEvent.Invoke();
         DisablePlayer(true);
         isOpen = true;
+        //effectly pauses the game
+        Time.timeScale = 0;
     }
 
     void DisableNote()
     {
+        Time.timeScale = 1;
         noteCanvas.SetActive(false);
         DisablePlayer(false);
-        isOpen = false;
+        isOpen = false;   
     }
 
     void DisablePlayer(bool disable)
