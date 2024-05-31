@@ -33,6 +33,11 @@ public class FadeManager : MonoBehaviour
         fadeImage.color = new Color(0, 0, 0, 0);
     }
 
+    private void Start() 
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
     // Function to fade to black
     public void FadeToBlack()
     {
