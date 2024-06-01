@@ -770,7 +770,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1294, y: -591}
+  m_AnchoredPosition: {x: 1532, y: -738}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1707450293
@@ -1193,14 +1193,14 @@ PrefabInstance:
     - target: {fileID: 114256140585702866, guid: 5ebad8a41bbacbe419403ab6a0c52078,
         type: 3}
       propertyPath: m_Color.a
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114324633318724984, guid: 5ebad8a41bbacbe419403ab6a0c52078,
         type: 3}
       propertyPath: m_Text
       value: "...and as the whole kingdom bled\n\t\t\t\t\tthe cursed darkness did
-        descend\nthey cry \"remember words in \n\t\t\t\t\tyou will need them at the
-        end..."
+        descend\nthe realm remembers words in     \n\t\t\t\t\tthey will be needed
+        at the end..."
       objectReference: {fileID: 0}
     - target: {fileID: 114324633318724984, guid: 5ebad8a41bbacbe419403ab6a0c52078,
         type: 3}
@@ -1337,22 +1337,22 @@ PrefabInstance:
     - target: {fileID: 224050213141341796, guid: 5ebad8a41bbacbe419403ab6a0c52078,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1062.9
+      value: 1389.6998
       objectReference: {fileID: 0}
     - target: {fileID: 224050213141341796, guid: 5ebad8a41bbacbe419403ab6a0c52078,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 615.8
+      value: 1043.4701
       objectReference: {fileID: 0}
     - target: {fileID: 224050213141341796, guid: 5ebad8a41bbacbe419403ab6a0c52078,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -421.5
+      value: -446.65015
       objectReference: {fileID: 0}
     - target: {fileID: 224050213141341796, guid: 5ebad8a41bbacbe419403ab6a0c52078,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -263.9
+      value: -364.46503
       objectReference: {fileID: 0}
     - target: {fileID: 224358545485769956, guid: 5ebad8a41bbacbe419403ab6a0c52078,
         type: 3}
@@ -1382,12 +1382,12 @@ PrefabInstance:
     - target: {fileID: 224530173765226072, guid: 5ebad8a41bbacbe419403ab6a0c52078,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 41
+      value: 214
       objectReference: {fileID: 0}
     - target: {fileID: 224530173765226072, guid: 5ebad8a41bbacbe419403ab6a0c52078,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: -197
       objectReference: {fileID: 0}
     - target: {fileID: 224530173765226072, guid: 5ebad8a41bbacbe419403ab6a0c52078,
         type: 3}
